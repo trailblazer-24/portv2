@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 type Project = {
   title: string;
@@ -47,6 +48,7 @@ const PROJECTS: Project[] = [
 
 export function ProjectsSection() {
   const [isVisible, setIsVisible] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -70,98 +72,126 @@ export function ProjectsSection() {
     <section
       ref={sectionRef}
       id="work"
-      className="bg-[#FAFAFA] py-24 text-[#111111] dark:bg-[#111111] dark:text-[#FAFAFA] sm:py-32"
+      className="relative bg-[#FAFAFA] py-32 text-[#111111] dark:bg-[#111111] dark:text-[#FAFAFA] sm:py-40"
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
-        {/* Section header */}
-        <div
-          className={`grid grid-cols-12 gap-4 border-b border-[#111111]/10 pb-8 dark:border-[#FAFAFA]/10 ${
-            isVisible ? "animate-fade-in-up" : "opacity-0"
-          }`}
-        >
-          <div className="col-span-12 sm:col-span-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#111111]/50 dark:text-[#FAFAFA]/50">
-              Selected Work
-            </span>
-          </div>
-          <div className="col-span-12 sm:col-span-8">
-            <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1] tracking-[-0.02em]">
-              Systems I&apos;ve designed
-              <br />
-              and built in production
-            </h2>
+        {/* Section header - LEFT aligned */}
+        <div className="relative mb-20 sm:mb-32">
+          {/* Faded number */}
+          <motion.span
+            initial={{ opacity: 0, x: -50 }}
+            animate={isVisible ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute -left-4 -top-8 font-mono text-[8rem] font-bold leading-none text-[#111111]/[0.03] dark:text-[#FAFAFA]/[0.03] sm:-left-8 sm:-top-16 sm:text-[12rem]"
+          >
+            01
+          </motion.span>
+
+          {/* Content */}
+          <div className="relative">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="mb-4 font-mono text-xs uppercase tracking-widest text-[#111111]/40 dark:text-[#FAFAFA]/40"
+            >
+              Selected work
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-[clamp(4rem,12vw,10rem)] font-bold leading-[0.85] tracking-[-0.04em]"
+            >
+              Projects
+            </motion.h2>
           </div>
         </div>
 
         {/* Projects list */}
-        <div className="mt-16">
+        <div className="space-y-0">
           {PROJECTS.map((project, i) => (
-            <ProjectRow
+            <motion.article
               key={project.title}
-              project={project}
-              isVisible={isVisible}
-              delay={i * 100}
-            />
+              initial={{ opacity: 0, y: 40 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 + i * 0.1 }}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              className="group relative cursor-pointer border-t border-[#111111]/10 py-8 transition-all duration-500 dark:border-[#FAFAFA]/10 sm:py-12"
+            >
+              {/* Hover background */}
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: hoveredIndex === i ? 1 : 0 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 -mx-6 origin-left bg-[#111111]/[0.02] dark:bg-[#FAFAFA]/[0.02] sm:-mx-8"
+              />
+
+              <div className="relative grid grid-cols-12 items-center gap-4">
+                {/* Index */}
+                <div className="col-span-2 sm:col-span-1">
+                  <span className="font-mono text-sm text-[#111111]/30 transition-colors duration-300 group-hover:text-[#111111] dark:text-[#FAFAFA]/30 dark:group-hover:text-[#FAFAFA]">
+                    {project.index}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <div className="col-span-10 sm:col-span-4">
+                  <h3 className="text-xl font-semibold tracking-tight transition-transform duration-500 group-hover:translate-x-2 sm:text-2xl">
+                    {project.title}
+                  </h3>
+                </div>
+
+                {/* Description - hidden on mobile */}
+                <div className="col-span-12 mt-2 sm:col-span-4 sm:mt-0">
+                  <p className="text-sm leading-relaxed text-[#111111]/60 dark:text-[#FAFAFA]/60">
+                    {project.description}
+                  </p>
+                </div>
+
+                {/* Year & Arrow */}
+                <div className="col-span-12 mt-4 flex items-center justify-between sm:col-span-3 sm:mt-0 sm:justify-end sm:gap-8">
+                  <span className="font-mono text-xs text-[#111111]/40 dark:text-[#FAFAFA]/40">
+                    {project.year}
+                  </span>
+                  <motion.span
+                    initial={{ x: 0, opacity: 0 }}
+                    animate={{
+                      x: hoveredIndex === i ? 0 : -10,
+                      opacity: hoveredIndex === i ? 1 : 0,
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="text-lg"
+                  >
+                    →
+                  </motion.span>
+                </div>
+              </div>
+
+              {/* Stack tags - appear on hover */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{
+                  opacity: hoveredIndex === i ? 1 : 0,
+                  y: hoveredIndex === i ? 0 : 10,
+                }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+                className="relative mt-4 flex flex-wrap gap-2 sm:mt-6"
+              >
+                {project.stack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="font-mono text-[10px] uppercase tracking-wider text-[#111111]/50 dark:text-[#FAFAFA]/50"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </motion.div>
+            </motion.article>
           ))}
         </div>
       </div>
     </section>
-  );
-}
-
-function ProjectRow({
-  project,
-  isVisible,
-  delay,
-}: {
-  project: Project;
-  isVisible: boolean;
-  delay: number;
-}) {
-  return (
-    <article
-      className={`group grid grid-cols-12 gap-4 border-b border-[#111111]/10 py-8 transition-colors duration-300 hover:bg-[#111111]/[0.02] dark:border-[#FAFAFA]/10 dark:hover:bg-[#FAFAFA]/[0.02] ${
-        isVisible ? "animate-fade-in-up" : "opacity-0"
-      }`}
-      style={{ animationDelay: `${delay}ms` }}
-    >
-      {/* Index */}
-      <div className="col-span-2 sm:col-span-1">
-        <span className="font-mono text-xs text-[#111111]/40 dark:text-[#FAFAFA]/40">
-          {project.index}
-        </span>
-      </div>
-
-      {/* Title & Year */}
-      <div className="col-span-10 sm:col-span-3">
-        <h3 className="text-lg font-semibold tracking-tight transition-transform duration-300 group-hover:translate-x-2">
-          {project.title}
-        </h3>
-        <span className="mt-1 block font-mono text-xs text-[#111111]/50 dark:text-[#FAFAFA]/50">
-          {project.year}
-        </span>
-      </div>
-
-      {/* Description */}
-      <div className="col-span-12 mt-4 sm:col-span-5 sm:mt-0">
-        <p className="text-sm leading-relaxed text-[#111111]/70 dark:text-[#FAFAFA]/70">
-          {project.description}
-        </p>
-      </div>
-
-      {/* Stack */}
-      <div className="col-span-12 mt-4 sm:col-span-3 sm:mt-0 sm:text-right">
-        <div className="flex flex-wrap gap-2 sm:justify-end">
-          {project.stack.map((tech) => (
-            <span
-              key={tech}
-              className="font-mono text-[11px] text-[#111111]/50 dark:text-[#FAFAFA]/50"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-      </div>
-    </article>
   );
 }

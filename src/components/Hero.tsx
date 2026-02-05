@@ -101,9 +101,8 @@ export function Hero({ isReady = true }: HeroProps) {
             }`}
             style={{ animationDelay: "300ms" }}
           >
-            I specialize in designing and implementing backend systems that are
-            fast, secure, and maintainable. From APIs and databases to payment
-            flows and microservices.
+            I design and implement backend systems.
+            <br></br>APIs, databases, and distributed services.
           </p>
 
           {/* CTA */}
@@ -121,7 +120,6 @@ export function Hero({ isReady = true }: HeroProps) {
                 }`}
                 style={{ animationDelay: "600ms" }}
               />
-              View work
             </a>
           </div>
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 type Step = {
   number: string;
@@ -11,39 +12,33 @@ type Step = {
 const STEPS: Step[] = [
   {
     number: "01",
-    title: "Problem Definition",
+    title: "Discovery",
     description:
-      "Clarifying business goals, constraints, scale expectations, and failure scenarios before writing a single line of code.",
+      "We start with a deep dive into your project requirements, goals, and constraints.",
   },
   {
     number: "02",
-    title: "System Design",
+    title: "Architecture",
     description:
-      "Designing data models, service boundaries, and architecture with scalability, reliability, and cost in mind.",
+      "I design a scalable system blueprint with clear component boundaries.",
   },
   {
     number: "03",
-    title: "Implementation",
+    title: "Development",
     description:
-      "Building clean, testable services with clear contracts, following best practices for security and performance.",
+      "Clean, tested code delivered incrementally with regular check-ins.",
   },
   {
     number: "04",
-    title: "Testing & Validation",
+    title: "Deployment",
     description:
-      "Verifying correctness through automated tests, edge cases, and real-world scenarios before production rollout.",
-  },
-  {
-    number: "05",
-    title: "Deployment & Monitoring",
-    description:
-      "Shipping to production with CI/CD, observability, logging, and metrics to ensure long-term system health.",
+      "Launch with CI/CD pipelines, monitoring, and documentation in place.",
   },
 ];
 
 export function ProcessSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeStep, setActiveStep] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -66,96 +61,107 @@ export function ProcessSection() {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#111111] py-24 text-[#FAFAFA] dark:bg-[#FAFAFA] dark:text-[#111111] sm:py-32"
+      className="relative bg-[#111111] py-32 text-[#FAFAFA] sm:py-40"
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
-        {/* Section header */}
-        <div
-          className={`grid grid-cols-12 gap-4 ${
-            isVisible ? "animate-fade-in-up" : "opacity-0"
-          }`}
-        >
-          <div className="col-span-12 sm:col-span-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#FAFAFA]/50 dark:text-[#111111]/50">
+        {/* Section header - RIGHT aligned */}
+        <div className="relative mb-20 text-right sm:mb-32">
+          {/* Faded number */}
+          <motion.span
+            initial={{ opacity: 0, x: 50 }}
+            animate={isVisible ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute -right-4 -top-8 font-mono text-[8rem] font-bold leading-none text-[#FAFAFA]/[0.03] sm:-right-8 sm:-top-16 sm:text-[12rem]"
+          >
+            04
+          </motion.span>
+
+          {/* Content */}
+          <div className="relative">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="mb-4 font-mono text-xs uppercase tracking-widest text-[#FAFAFA]/40"
+            >
+              How I work
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-[clamp(4rem,12vw,10rem)] font-bold leading-[0.85] tracking-[-0.04em]"
+            >
               Process
-            </span>
-          </div>
-          <div className="col-span-12 sm:col-span-8">
-            <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1] tracking-[-0.02em]">
-              A structured approach
-              <br />
-              to building systems
-            </h2>
+            </motion.h2>
           </div>
         </div>
 
-        {/* Process timeline */}
-        <div className="mt-20 grid grid-cols-12 gap-8">
-          {/* Left - Step numbers */}
-          <div
-            className={`col-span-12 sm:col-span-2 ${
-              isVisible ? "animate-slide-in-left" : "opacity-0"
-            }`}
-          >
-            <div className="flex flex-row gap-4 sm:flex-col sm:gap-0">
-              {STEPS.map((step, i) => (
-                <button
-                  key={step.number}
-                  onClick={() => setActiveStep(i)}
-                  className={`relative py-4 text-left font-mono text-sm transition-all duration-300 ${
-                    activeStep === i
-                      ? "text-[#FAFAFA] dark:text-[#111111]"
-                      : "text-[#FAFAFA]/30 hover:text-[#FAFAFA]/60 dark:text-[#111111]/30 dark:hover:text-[#111111]/60"
-                  }`}
-                >
-                  {step.number}
-                  {activeStep === i && (
-                    <span className="absolute bottom-0 left-0 hidden h-px w-full bg-[#FAFAFA] dark:bg-[#111111] sm:block" />
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
+        {/* Process steps - horizontal timeline */}
+        <div className="relative">
+          {/* Connecting line */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={isVisible ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute left-0 top-[28px] hidden h-px w-full origin-left bg-[#FAFAFA]/20 lg:block"
+          />
 
-          {/* Right - Content */}
-          <div
-            className={`col-span-12 sm:col-span-10 sm:col-start-4 ${
-              isVisible ? "animate-slide-in-right" : "opacity-0"
-            }`}
-          >
-            <div className="relative min-h-[200px]">
-              {STEPS.map((step, i) => (
-                <div
-                  key={step.number}
-                  className={`transition-all duration-500 ${
-                    activeStep === i
-                      ? "relative opacity-100"
-                      : "pointer-events-none absolute inset-0 opacity-0"
-                  }`}
+          <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+            {STEPS.map((step, i) => (
+              <motion.div
+                key={step.number}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isVisible ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.4 + i * 0.15 }}
+                onMouseEnter={() => setHoveredIndex(i)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                className="group relative"
+              >
+                {/* Step indicator */}
+                <motion.div
+                  animate={{
+                    scale: hoveredIndex === i ? 1.2 : 1,
+                    backgroundColor:
+                      hoveredIndex === i ? "#FAFAFA" : "transparent",
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="relative z-10 mb-6 flex h-14 w-14 items-center justify-center border border-[#FAFAFA]/30"
                 >
-                  <h3 className="text-[clamp(1.5rem,4vw,2.5rem)] font-bold tracking-tight">
-                    {step.title}
-                  </h3>
-                  <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#FAFAFA]/70 dark:text-[#111111]/70">
-                    {step.description}
-                  </p>
+                  <motion.span
+                    animate={{
+                      color: hoveredIndex === i ? "#111111" : "#FAFAFA",
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="font-mono text-sm"
+                  >
+                    {step.number}
+                  </motion.span>
+                </motion.div>
 
-                  {/* Progress indicator */}
-                  <div className="mt-12 flex items-center gap-2">
-                    {STEPS.map((_, idx) => (
-                      <div
-                        key={idx}
-                        className={`h-1 w-8 transition-all duration-300 ${
-                          idx <= activeStep
-                            ? "bg-[#FAFAFA] dark:bg-[#111111]"
-                            : "bg-[#FAFAFA]/20 dark:bg-[#111111]/20"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
+                {/* Title */}
+                <motion.h3
+                  animate={{ x: hoveredIndex === i ? 4 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="mb-3 text-xl font-semibold tracking-tight"
+                >
+                  {step.title}
+                </motion.h3>
+
+                {/* Description */}
+                <p className="text-sm leading-relaxed text-[#FAFAFA]/60">
+                  {step.description}
+                </p>
+
+                {/* Hover line */}
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: hoveredIndex === i ? "40px" : 0 }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="mt-4 h-px bg-[#FAFAFA]"
+                />
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>

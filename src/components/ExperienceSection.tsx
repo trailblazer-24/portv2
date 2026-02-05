@@ -1,33 +1,46 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 type Experience = {
-  range: string;
-  title: string;
+  period: string;
+  role: string;
   company: string;
   description: string;
+  technologies: string[];
 };
 
-const EXPERIENCE: Experience[] = [
+const EXPERIENCES: Experience[] = [
   {
-    range: "2023 — Present",
-    title: "Senior Backend / Full-Stack Engineer",
-    company: "Freelance / Consulting",
+    period: "2023 — Present",
+    role: "Senior Backend Engineer",
+    company: "Tech Startup",
     description:
-      "Designed and built scalable backend systems for startups and growing products. Led architecture decisions, implemented APIs, authentication, and data pipelines, and ensured production readiness through monitoring and performance optimization.",
+      "Leading backend architecture for a high-scale fintech platform processing millions of transactions.",
+    technologies: ["Go", "PostgreSQL", "Redis", "Kubernetes"],
   },
   {
-    range: "2021 — 2023",
-    title: "Backend Engineer",
-    company: "Product-Based Startup",
+    period: "2021 — 2023",
+    role: "Backend Developer",
+    company: "Digital Agency",
     description:
-      "Worked on core backend services handling business logic, data modeling, and third-party integrations. Focused on reliability, clean service boundaries, and improving system performance as usage scaled.",
+      "Built and maintained APIs for enterprise clients across healthcare and e-commerce sectors.",
+    technologies: ["Node.js", "TypeScript", "MongoDB", "AWS"],
+  },
+  {
+    period: "2019 — 2021",
+    role: "Software Engineer",
+    company: "Product Company",
+    description:
+      "Full-stack development with focus on backend services and database optimization.",
+    technologies: ["Python", "Django", "PostgreSQL", "Docker"],
   },
 ];
 
 export function ExperienceSection() {
   const [isVisible, setIsVisible] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -50,81 +63,155 @@ export function ExperienceSection() {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#FAFAFA] py-24 text-[#111111] dark:bg-[#111111] dark:text-[#FAFAFA] sm:py-32"
+      className="relative bg-[#FAFAFA] py-32 text-[#111111] sm:py-40"
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
-        {/* Section header */}
-        <div
-          className={`grid grid-cols-12 gap-4 border-b border-[#111111]/10 pb-8 dark:border-[#FAFAFA]/10 ${
-            isVisible ? "animate-fade-in-up" : "opacity-0"
-          }`}
-        >
-          <div className="col-span-12 sm:col-span-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#111111]/50 dark:text-[#FAFAFA]/50">
+        {/* Section header - LEFT aligned */}
+        <div className="relative mb-20 sm:mb-32">
+          {/* Faded number */}
+          <motion.span
+            initial={{ opacity: 0, x: -50 }}
+            animate={isVisible ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute -left-4 -top-8 font-mono text-[8rem] font-bold leading-none text-[#111111]/[0.03] sm:-left-8 sm:-top-16 sm:text-[12rem]"
+          >
+            05
+          </motion.span>
+
+          {/* Content */}
+          <div className="relative">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="mb-4 font-mono text-xs uppercase tracking-widest text-[#111111]/40"
+            >
+              Career journey
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-[clamp(4rem,12vw,10rem)] font-bold leading-[0.85] tracking-[-0.04em]"
+            >
               Experience
-            </span>
-          </div>
-          <div className="col-span-12 sm:col-span-8">
-            <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1] tracking-[-0.02em]">
-              Professional
-              <br />
-              background
-            </h2>
+            </motion.h2>
           </div>
         </div>
 
-        {/* Experience list */}
-        <div className="mt-16">
-          {EXPERIENCE.map((exp, i) => (
-            <article
-              key={exp.range}
-              className={`grid grid-cols-12 gap-4 border-b border-[#111111]/10 py-12 dark:border-[#FAFAFA]/10 ${
-                isVisible ? "animate-fade-in-up" : "opacity-0"
-              }`}
-              style={{ animationDelay: `${(i + 1) * 150}ms` }}
+        {/* Experience items */}
+        <div className="space-y-0">
+          {EXPERIENCES.map((exp, i) => (
+            <motion.div
+              key={exp.period}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              className="group relative border-t border-[#111111]/10 py-8 sm:py-12"
             >
-              {/* Date range */}
-              <div className="col-span-12 sm:col-span-3">
-                <span className="font-mono text-sm text-[#111111]/50 dark:text-[#FAFAFA]/50">
-                  {exp.range}
-                </span>
+              {/* Hover background */}
+              <motion.div
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: hoveredIndex === i ? 1 : 0 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 origin-top bg-[#111111]/[0.02]"
+              />
+
+              <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-12 sm:gap-8">
+                {/* Period */}
+                <div className="sm:col-span-3">
+                  <motion.span
+                    animate={{ x: hoveredIndex === i ? 4 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="font-mono text-xs uppercase tracking-widest text-[#111111]/40"
+                  >
+                    {exp.period}
+                  </motion.span>
+                </div>
+
+                {/* Content */}
+                <div className="sm:col-span-6">
+                  <motion.h3
+                    animate={{ x: hoveredIndex === i ? 8 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-xl font-semibold tracking-tight sm:text-2xl"
+                  >
+                    {exp.role}
+                  </motion.h3>
+                  <p className="mt-1 text-sm text-[#111111]/60">{exp.company}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-[#111111]/60">
+                    {exp.description}
+                  </p>
+                </div>
+
+                {/* Technologies */}
+                <div className="sm:col-span-3">
+                  <motion.div
+                    initial={{ opacity: 0.4 }}
+                    animate={{ opacity: hoveredIndex === i ? 1 : 0.4 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex flex-wrap gap-2 sm:justify-end"
+                  >
+                    {exp.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="font-mono text-xs text-[#111111]/60"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </motion.div>
+                </div>
               </div>
 
-              {/* Title & Company */}
-              <div className="col-span-12 sm:col-span-4">
-                <h3 className="text-lg font-semibold tracking-tight">
-                  {exp.title}
-                </h3>
-                <span className="mt-1 block text-sm text-[#111111]/50 dark:text-[#FAFAFA]/50">
-                  {exp.company}
-                </span>
-              </div>
-
-              {/* Description */}
-              <div className="col-span-12 mt-4 sm:col-span-5 sm:mt-0">
-                <p className="text-sm leading-relaxed text-[#111111]/70 dark:text-[#FAFAFA]/70">
-                  {exp.description}
-                </p>
-              </div>
-            </article>
+              {/* Arrow indicator */}
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{
+                  opacity: hoveredIndex === i ? 1 : 0,
+                  x: hoveredIndex === i ? 0 : -10,
+                }}
+                transition={{ duration: 0.3 }}
+                className="absolute right-0 top-1/2 -translate-y-1/2 text-[#111111]/40"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
 
         {/* Resume link */}
-        <div
-          className={`mt-12 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
-          style={{ animationDelay: "400ms" }}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="mt-16 flex justify-center"
         >
           <a
-            href="#resume"
-            className="group inline-flex items-center gap-3 border border-[#111111] px-6 py-3 font-mono text-xs uppercase tracking-widest transition-colors hover:bg-[#111111] hover:text-[#FAFAFA] dark:border-[#FAFAFA] dark:hover:bg-[#FAFAFA] dark:hover:text-[#111111]"
+            href="/resume.pdf"
+            className="group inline-flex items-center gap-3 border border-[#111111]/20 px-8 py-4 font-mono text-xs uppercase tracking-widest transition-all duration-300 hover:border-[#111111] hover:bg-[#111111] hover:text-[#FAFAFA]"
           >
-            Download Resume
-            <span className="transition-transform group-hover:translate-x-1">
-              ↓
-            </span>
+            View full resume
+            <motion.span
+              initial={{ x: 0 }}
+              whileHover={{ x: 4 }}
+              className="transition-transform"
+            >
+              →
+            </motion.span>
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
