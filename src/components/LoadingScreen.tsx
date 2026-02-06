@@ -42,14 +42,14 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
     <AnimatePresence onExitComplete={handleExitComplete}>
       {!isExiting && (
         <motion.div
-          className="fixed inset-0 z-[100] flex flex-col bg-[#FAFAFA] dark:bg-[#111111]"
+          className="fixed inset-0 z-[100] flex flex-col bg-[#FAFAFA]"
           exit={{ x: "-100%" }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         >
           {/* Line */}
           <div className="absolute left-0 right-0 top-[60%]">
             <motion.div
-              className="h-px bg-[#111111] dark:bg-[#FAFAFA]"
+              className="h-px bg-[#0A0A0A]"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
@@ -58,10 +58,10 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
           </div>
 
           {/* Counter */}
-          <div className="absolute bottom-[15%] left-6 sm:left-8">
+          <div className="absolute bottom-[15%] left-6 sm:left-8 lg:left-12">
             <div className="flex items-start">
               <motion.span
-                className="text-[clamp(6rem,22vw,10rem)] font-bold leading-none tracking-[-0.03em] text-[#111111] dark:text-[#FAFAFA]"
+                className="text-[clamp(6rem,22vw,10rem)] font-semibold leading-none tracking-[-0.03em] text-[#0A0A0A]"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
@@ -69,7 +69,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
                 {String(count).padStart(2, "0")}
               </motion.span>
               <motion.span
-                className="mt-4 text-[clamp(2rem,6vw,5rem)] font-bold leading-none tracking-[-0.02em] text-[#111111] dark:text-[#FAFAFA] sm:mt-8"
+                className="mt-4 text-[clamp(2rem,6vw,5rem)] font-semibold leading-none tracking-[-0.02em] text-[#0A0A0A]/30 sm:mt-8"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
@@ -79,10 +79,10 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
             </div>
           </div>
 
-          {/* Optional: Loading text */}
-          <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8">
+          {/* Loading text */}
+          <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 lg:right-12">
             <motion.span
-              className="font-mono text-xs uppercase tracking-widest text-[#111111]/50 dark:text-[#FAFAFA]/50"
+              className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#0A0A0A]/30"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}

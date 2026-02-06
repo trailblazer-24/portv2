@@ -14,7 +14,7 @@ export function ClosingSection() {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
 
     if (sectionRef.current) {
@@ -28,155 +28,123 @@ export function ClosingSection() {
     <section
       id="closing"
       ref={sectionRef}
-      className="relative bg-[#FAFAFA] py-32 text-[#111111] sm:py-40"
+      className="relative bg-[#FAFAFA] pb-0 pt-24 text-[#111111] sm:pt-32"
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
-        {/* Main CTA */}
-        <div className="relative mb-24 border-y border-[#111111]/10 py-20 sm:py-32">
+        <div className="relative py-20 sm:py-28">
           {/* Faded number */}
           <motion.span
-            initial={{ opacity: 0, x: -50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, x: -30 }}
+            animate={isVisible ? { opacity: 0.04, x: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute -left-4 -top-8 font-mono text-[8rem] font-bold leading-none text-[#111111]/[0.03] sm:-left-8 sm:-top-16 sm:text-[12rem]"
+            className="absolute -left-4 -top-8 font-mono text-[8rem] font-bold leading-none sm:-left-6 sm:-top-12 sm:text-[12rem]"
+            style={{ color: "#111111" }}
           >
             07
           </motion.span>
 
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-            {/* Left content */}
-            <div className="lg:col-span-8">
+          <div className="grid grid-cols-1 items-end gap-16 lg:grid-cols-2">
+            {/* Left — CTA */}
+            <div>
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="mb-4 font-mono text-xs uppercase tracking-widest text-[#111111]/40"
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="mb-6 font-mono text-[11px] uppercase tracking-[0.25em] text-[#111111]/40"
               >
-                Start a conversation
+                Next steps
               </motion.p>
 
               <motion.h2
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-[clamp(3rem,10vw,8rem)] font-bold leading-[0.85] tracking-[-0.04em]"
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className="font-display text-[clamp(3rem,10vw,7.5rem)] font-extrabold leading-[0.9] tracking-[-0.045em]"
               >
-                Let&apos;s
+                Let&apos;s build
                 <br />
-                Connect
+                something.
               </motion.h2>
 
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="mt-8 max-w-md text-lg leading-relaxed text-[#111111]/60"
+                transition={{ duration: 0.5, delay: 0.25 }}
+                className="mt-8 max-w-md text-[15px] leading-[1.7] text-[#111111]/55 sm:text-base"
               >
-                Whether you&apos;re validating an idea or scaling an existing
-                product, I help teams turn complexity into reliable,
-                production-ready systems.
+                Have a project in mind? I help teams turn complex challenges
+                into reliable, production-ready systems.
               </motion.p>
 
               <motion.a
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                transition={{ duration: 0.5, delay: 0.35 }}
                 href="mailto:hello@biswajitrath.dev"
-                className="group mt-10 inline-flex items-center gap-4 border border-[#111111] px-8 py-4 font-mono text-sm uppercase tracking-widest transition-all duration-300 hover:bg-[#111111] hover:text-[#FAFAFA]"
+                className="group relative mt-10 inline-flex items-center gap-4 overflow-hidden bg-[#111111] px-10 py-5 font-mono text-[11px] uppercase tracking-[0.25em] text-[#FAFAFA] transition-all duration-500 hover:gap-6"
               >
-                Get in touch
-                <motion.span
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 4 }}
-                  className="transition-transform duration-300 group-hover:translate-x-2"
-                >
+                <span className="relative z-10">Start a project</span>
+                <span className="relative z-10 transition-transform duration-500 group-hover:translate-x-1">
                   →
-                </motion.span>
+                </span>
+                <span className="absolute inset-0 -translate-x-full bg-[#333333] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0" />
               </motion.a>
             </div>
 
-            {/* Right contact info */}
+            {/* Right — Contact details */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="flex flex-col justify-end lg:col-span-4"
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex flex-col gap-6 lg:items-end lg:text-right"
             >
-              <div className="space-y-8">
-                <div className="group">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-[#111111]/40">
-                    Email
-                  </span>
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#111111]/35">
+                  Email
+                </p>
+                <a
+                  href="mailto:hello@biswajitrath.dev"
+                  className="mt-1.5 block text-sm text-[#111111]/80 transition-colors duration-300 hover:text-[#111111]"
+                >
+                  hello@biswajitrath.dev
+                </a>
+              </div>
+
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#111111]/35">
+                  Social
+                </p>
+                <div className="mt-1.5 flex gap-4 lg:justify-end">
                   <a
-                    href="mailto:hello@biswajitrath.dev"
-                    className="mt-2 block text-sm transition-opacity hover:opacity-60"
+                    href="https://github.com/biswajitrath"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-[#111111]/80 transition-colors duration-300 hover:text-[#111111]"
                   >
-                    hello@biswajitrath.dev
+                    GitHub ↗
+                  </a>
+                  <a
+                    href="https://linkedin.com/in/biswajitrath"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-[#111111]/80 transition-colors duration-300 hover:text-[#111111]"
+                  >
+                    LinkedIn ↗
                   </a>
                 </div>
+              </div>
 
-                <div>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-[#111111]/40">
-                    Social
-                  </span>
-                  <div className="mt-2 flex flex-col gap-2">
-                    <a
-                      href="#github"
-                      className="group inline-flex items-center gap-2 text-sm transition-opacity hover:opacity-60"
-                    >
-                      GitHub
-                      <span className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
-                        ↗
-                      </span>
-                    </a>
-                    <a
-                      href="#linkedin"
-                      className="group inline-flex items-center gap-2 text-sm transition-opacity hover:opacity-60"
-                    >
-                      LinkedIn
-                      <span className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
-                        ↗
-                      </span>
-                    </a>
-                  </div>
-                </div>
-
-                <div>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-[#111111]/40">
-                    Location
-                  </span>
-                  <p className="mt-2 text-sm">India</p>
-                </div>
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#111111]/35">
+                  Location
+                </p>
+                <p className="mt-1.5 text-sm text-[#111111]/80">
+                  India — Available worldwide
+                </p>
               </div>
             </motion.div>
           </div>
         </div>
-
-        {/* Footer */}
-        <motion.footer
-          initial={{ opacity: 0, y: 20 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="grid grid-cols-1 gap-4 sm:grid-cols-3"
-        >
-          <span className="font-mono text-xs text-[#111111]/40">
-            © {new Date().getFullYear()} Biswajit Rath
-          </span>
-
-          <span className="font-mono text-xs text-[#111111]/40 sm:text-center">
-            Built with precision
-          </span>
-
-          <a
-            href="#top"
-            className="group inline-flex items-center gap-2 font-mono text-xs text-[#111111]/40 transition-colors hover:text-[#111111] sm:justify-end"
-          >
-            Back to top
-            <span className="transition-transform group-hover:-translate-y-1">
-              ↑
-            </span>
-          </a>
-        </motion.footer>
       </div>
     </section>
   );

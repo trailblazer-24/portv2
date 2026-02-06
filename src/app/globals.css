@@ -5,29 +5,28 @@
 
 :root {
   --background: #FAFAFA;
-  --foreground: #111111;
-  --accent: #111111;
-}
-
-.dark {
-  --background: #111111;
-  --foreground: #FAFAFA;
-  --accent: #FAFAFA;
+  --foreground: #0A0A0A;
+  --muted: #666666;
+  --border: #E5E5E5;
+  --accent: #0A0A0A;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-display);
 }
 
-/* Swiss Typography System */
+/* Swiss Typography Foundation */
 html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -40,13 +39,9 @@ body {
 /* Display font for headings */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display), var(--font-sans), sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-}
-
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
 }
 
 /* Selection color */
@@ -55,93 +50,82 @@ html {
   color: var(--background);
 }
 
-/* Swiss-inspired animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Swiss Grid Guide Lines */
+.guide-line-v {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  background: var(--foreground);
+  opacity: 0.06;
 }
 
+.guide-line-h {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: var(--foreground);
+  opacity: 0.08;
+}
+
+/* Intentional animations - minimal, calm, purposeful */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(40px); 
   }
-  to {
-    opacity: 1;
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
   }
 }
 
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-24px);
+@keyframes slideIn {
+  from { 
+    opacity: 0; 
+    transform: translateX(-20px); 
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
   }
 }
 
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+@keyframes lineReveal {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
-@keyframes lineGrow {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
+@keyframes lineRevealV {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
 }
 
-/* Animation utility classes */
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
-}
-
+/* Utility animation classes */
 .animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-slide-in-left {
-  animation: slideInLeft 0.6s ease-out forwards;
+.animate-slide-up {
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-slide-in-right {
-  animation: slideInRight 0.6s ease-out forwards;
+.animate-slide-in {
+  animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-scale-in {
-  animation: scaleIn 0.5s ease-out forwards;
-}
-
-.animate-line-grow {
-  animation: lineGrow 0.8s ease-out forwards;
+.animate-line-reveal {
+  animation: lineReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   transform-origin: left;
+}
+
+.animate-line-reveal-v {
+  animation: lineRevealV 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: top;
 }
 
 /* Stagger delays */
@@ -151,42 +135,29 @@ html {
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
 .delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+.delay-800 { animation-delay: 800ms; }
 
-/* Swiss grid line */
-.swiss-line {
-  height: 1px;
-  background: currentColor;
-  opacity: 0.1;
-}
-
-/* Hover lift effect */
-.hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-2px);
-}
-
-/* Link underline animation */
-.link-underline {
+/* Swiss Link Style */
+.swiss-link {
   position: relative;
+  display: inline-block;
 }
 
-.link-underline::after {
+.swiss-link::after {
   content: "";
   position: absolute;
-  bottom: -2px;
+  bottom: -1px;
   left: 0;
   width: 100%;
   height: 1px;
   background: currentColor;
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.link-underline:hover::after {
+.swiss-link:hover::after {
   transform: scaleX(1);
   transform-origin: left;
 }
@@ -210,4 +181,28 @@ body.loading {
 
 .animate-count-up {
   animation: countUp 0.5s ease-out forwards;
+}
+
+/* Custom scrollbar - minimal */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--foreground);
+  opacity: 0.2;
+}
+
+/* Text reveal mask */
+.text-reveal {
+  clip-path: inset(0 100% 0 0);
+  animation: textReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes textReveal {
+  to { clip-path: inset(0 0 0 0); }
 }

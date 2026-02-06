@@ -5,12 +5,8 @@ import { motion } from "framer-motion";
 import { LoadingScreen } from "@/components/LoadingScreen";
 import { Hero } from "@/components/Hero";
 import { ProjectsSection } from "@/components/ProjectsSection";
-import { BenefitsSection } from "@/components/BenefitsSection";
-import { ServicesSection } from "@/components/ServicesSection";
-import { ProcessSection } from "@/components/ProcessSection";
-import { ExperienceSection } from "@/components/ExperienceSection";
-import { TestimonialsSection } from "@/components/TestimonialsSection";
-import { ClosingSection } from "@/components/ClosingSection";
+import { AboutSection } from "@/components/BenefitsSection";
+import { Footer } from "@/components/Footer";
 
 export function PageContent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,12 +31,8 @@ export function PageContent() {
         <div id="top" />
         <Hero isReady={showContent} />
         <ProjectsSection />
-        <BenefitsSection />
-        <ServicesSection />
-        <ProcessSection />
-        <ExperienceSection />
-        <TestimonialsSection />
-        <ClosingSection />
+        <AboutSection />
+        <Footer />
       </motion.div>
     </>
   );

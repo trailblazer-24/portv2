@@ -89,7 +89,7 @@ export function TestimonialsSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-[clamp(4rem,12vw,10rem)] font-bold leading-[0.85] tracking-[-0.04em]"
+              className="font-display text-[clamp(4rem,12vw,10rem)] font-extrabold leading-[0.85] tracking-[-0.045em]"
             >
               Voices
             </motion.h2>

@@ -1,232 +1,209 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 interface HeroProps {
   isReady?: boolean;
 }
 
 export function Hero({ isReady = true }: HeroProps) {
-  const [showCTA, setShowCTA] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    // Only trigger animations when isReady is true
     if (isReady) {
       setIsLoaded(true);
     }
+  }, [isReady]);
 
-    const handleScroll = () => {
-      const sections = document.querySelectorAll("section");
-      if (sections.length === 0) return;
-
-      const lastSection = sections[sections.length - 1];
-      const lastSectionRect = lastSection.getBoundingClientRect();
-
-      if (lastSectionRect.top < window.innerHeight * 0.8) {
-        setShowCTA(false);
-      } else {
-        setShowCTA(true);
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect();
+        setMousePosition({
+          x: (e.clientX - rect.left) / rect.width,
+          y: (e.clientY - rect.top) / rect.height,
+        });
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isReady]);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   return (
-    <section className="relative min-h-screen bg-[#FAFAFA] text-[#111111] dark:bg-[#111111] dark:text-[#FAFAFA]">
-      {/* Grid container */}
-      <div className="mx-auto grid min-h-screen max-w-6xl grid-cols-12 gap-4 px-6 py-6 sm:px-8">
-        {/* Header */}
-        <header
-          className={`col-span-12 flex items-center justify-between border-b border-[#111111]/10 pb-4 dark:border-[#FAFAFA]/10 ${
-            isLoaded ? "animate-fade-in" : "opacity-0"
-          }`}
-        >
-          <div className="font-mono text-xs uppercase tracking-widest">
-            Biswajit Rath
-          </div>
+    <section
+      ref={heroRef}
+      className="relative min-h-screen bg-[#FAFAFA] text-[#0A0A0A] overflow-hidden"
+    >
+      {/* Subtle grid guides */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Vertical guide */}
+        <motion.div
+          initial={{ scaleY: 0 }}
+          animate={isLoaded ? { scaleY: 1 } : {}}
+          transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute left-[15%] top-0 w-px h-full bg-[#0A0A0A]/[0.04] origin-top"
+        />
+        <motion.div
+          initial={{ scaleY: 0 }}
+          animate={isLoaded ? { scaleY: 1 } : {}}
+          transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute right-[20%] top-0 w-px h-full bg-[#0A0A0A]/[0.04] origin-top hidden lg:block"
+        />
+      </div>
 
-          <nav className="flex items-center gap-8">
-            <a
-              href="#work"
-              className="link-underline font-mono text-xs uppercase tracking-widest text-[#111111]/60 transition-colors hover:text-[#111111] dark:text-[#FAFAFA]/60 dark:hover:text-[#FAFAFA]"
-            >
-              Work
-            </a>
-            <a
-              href="#blog"
-              className="link-underline font-mono text-xs uppercase tracking-widest text-[#111111]/60 transition-colors hover:text-[#111111] dark:text-[#FAFAFA]/60 dark:hover:text-[#FAFAFA]"
-            >
-              Blog
-            </a>
-            <a
-              href="mailto:hello@biswajitrath.dev"
-              className="border border-[#111111] px-4 py-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 hover:bg-[#111111] hover:text-[#FAFAFA] dark:border-[#FAFAFA] dark:hover:bg-[#FAFAFA] dark:hover:text-[#111111]"
-            >
-              Contact
-            </a>
-          </nav>
+      {/* Main container */}
+      <div className="relative mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+        {/* Header */}
+        <header className="pt-8 pb-6">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={isLoaded ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-center justify-between"
+          >
+            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#0A0A0A]/70">
+              Biswajit Rath
+            </span>
+            <nav className="flex items-center gap-8">
+              <a
+                href="#work"
+                className="swiss-link font-mono text-[11px] uppercase tracking-[0.2em] text-[#0A0A0A]/50 hover:text-[#0A0A0A] transition-colors duration-300"
+              >
+                Work
+              </a>
+              <a
+                href="#about"
+                className="swiss-link font-mono text-[11px] uppercase tracking-[0.2em] text-[#0A0A0A]/50 hover:text-[#0A0A0A] transition-colors duration-300"
+              >
+                About
+              </a>
+              <a
+                href="#contact"
+                className="swiss-link font-mono text-[11px] uppercase tracking-[0.2em] text-[#0A0A0A]/50 hover:text-[#0A0A0A] transition-colors duration-300"
+              >
+                Contact
+              </a>
+            </nav>
+          </motion.div>
+
+          {/* Horizontal line below header */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={isLoaded ? { scaleX: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-6 h-px bg-[#0A0A0A]/10 origin-left"
+          />
         </header>
 
-        {/* Hero content - asymmetric grid layout */}
-        <div className="col-span-12 flex flex-col justify-center pt-16 sm:col-span-10 sm:col-start-1 lg:col-span-8">
-          {/* Label */}
-          <p
-            className={`mb-6 font-mono text-xs uppercase tracking-widest text-[#111111]/50 dark:text-[#FAFAFA]/50 ${
-              isLoaded ? "animate-fade-in-up" : "opacity-0"
-            }`}
-            style={{ animationDelay: "100ms" }}
-          >
-            Backend Developer
-          </p>
-
-          {/* Headline - dramatic Swiss typography */}
-          <h1
-            className={`text-[clamp(3rem,8vw,6rem)] font-bold leading-[0.95] tracking-[-0.03em] ${
-              isLoaded ? "animate-fade-in-up" : "opacity-0"
-            }`}
-            style={{ animationDelay: "200ms" }}
-          >
-            Building systems
-            <br />
-            that scale.
-          </h1>
-
-          {/* Description */}
-          <p
-            className={`mt-12 max-w-md text-base leading-relaxed text-[#111111]/70 dark:text-[#FAFAFA]/70 sm:text-lg ${
-              isLoaded ? "animate-fade-in-up" : "opacity-0"
-            }`}
-            style={{ animationDelay: "300ms" }}
-          >
-            I design and implement backend systems.
-            <br></br>APIs, databases, and distributed services.
-          </p>
-
-          {/* CTA */}
-          <div
-            className={`mt-10 ${isLoaded ? "animate-fade-in-up" : "opacity-0"}`}
-            style={{ animationDelay: "400ms" }}
-          >
-            <a
-              href="#work"
-              className="group inline-flex items-center gap-3 font-mono text-sm uppercase tracking-widest"
+        {/* Hero content - asymmetric */}
+        <div className="relative pt-[12vh] sm:pt-[15vh] lg:pt-[18vh] pb-24">
+          {/* Main headline */}
+          <div className="max-w-4xl">
+            <motion.p
+              initial={{ opacity: 0, x: -20 }}
+              animate={isLoaded ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#0A0A0A]/40 mb-8"
             >
-              <span
-                className={`h-px w-12 bg-[#111111] transition-all duration-300 group-hover:w-20 dark:bg-[#FAFAFA] ${
-                  isLoaded ? "animate-line-grow" : "scale-x-0"
-                }`}
-                style={{ animationDelay: "600ms" }}
-              />
-            </a>
-          </div>
-        </div>
+              Backend Developer
+            </motion.p>
 
-        {/* Stack - right column */}
-        <div
-          className={`col-span-12 flex flex-col justify-end pb-16 sm:col-span-2 sm:col-start-11 lg:col-span-3 lg:col-start-10 ${
-            isLoaded ? "animate-slide-in-right" : "opacity-0"
-          }`}
-          style={{ animationDelay: "400ms" }}
-        >
-          <div className="border-t border-[#111111]/10 pt-4 dark:border-[#FAFAFA]/10">
-            <p className="mb-4 font-mono text-[10px] uppercase tracking-widest text-[#111111]/50 dark:text-[#FAFAFA]/50">
-              Stack
+            <motion.h1
+              initial={{ opacity: 0, y: 60 }}
+              animate={isLoaded ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display text-[clamp(3.5rem,9vw,8rem)] font-semibold leading-[0.9] tracking-[-0.035em]"
+            >
+              Building
+              <br />
+              <span className="text-[#0A0A0A]/20">systems that</span>
+              <br />
+              scale.
+            </motion.h1>
+          </div>
+
+          {/* Offset description block */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isLoaded ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-16 lg:mt-20 lg:ml-[30%] max-w-md"
+          >
+            <p className="text-[15px] leading-[1.8] text-[#0A0A0A]/60">
+              I architect and build backend systems—APIs, databases, 
+              and distributed services—designed for reliability and growth.
             </p>
-            <ul className="space-y-2 font-mono text-xs">
-              <li>Java</li>
-              <li>Node.js</li>
-              <li>PostgreSQL</li>
-              <li>AWS</li>
-            </ul>
-          </div>
+          </motion.div>
 
-          <div className="mt-8 border-t border-[#111111]/10 pt-4 dark:border-[#FAFAFA]/10">
-            <p className="mb-4 font-mono text-[10px] uppercase tracking-widest text-[#111111]/50 dark:text-[#FAFAFA]/50">
-              Links
-            </p>
-            <ul className="space-y-2 font-mono text-xs">
-              <li>
-                <a
-                  href="#linkedin"
-                  className="text-[#111111]/70 transition-colors hover:text-[#111111] dark:text-[#FAFAFA]/70 dark:hover:text-[#FAFAFA]"
-                >
-                  LinkedIn ↗
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#github"
-                  className="text-[#111111]/70 transition-colors hover:text-[#111111] dark:text-[#FAFAFA]/70 dark:hover:text-[#FAFAFA]"
-                >
-                  GitHub ↗
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#resume"
-                  className="text-[#111111]/70 transition-colors hover:text-[#111111] dark:text-[#FAFAFA]/70 dark:hover:text-[#FAFAFA]"
-                >
-                  Resume ↗
-                </a>
-              </li>
-            </ul>
-          </div>
+          {/* Minimal side info - positioned absolutely */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isLoaded ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute bottom-24 right-0 hidden lg:block text-right"
+          >
+            <div className="space-y-6">
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#0A0A0A]/30 mb-2">
+                  Location
+                </p>
+                <p className="text-sm text-[#0A0A0A]/60">India</p>
+              </div>
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#0A0A0A]/30 mb-2">
+                  Status
+                </p>
+                <p className="text-sm text-[#0A0A0A]/60">Available</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
 
-        {/* Bottom index marker */}
-        <div
-          className={`col-span-12 mt-auto flex items-end justify-between border-t border-[#111111]/10 pt-4 dark:border-[#FAFAFA]/10 ${
-            isLoaded ? "animate-fade-in" : "opacity-0"
-          }`}
-          style={{ animationDelay: "500ms" }}
-        >
-          <span className="font-mono text-[10px] uppercase tracking-widest text-[#111111]/40 dark:text-[#FAFAFA]/40">
-            Based in India
-          </span>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-[#111111]/40 dark:text-[#FAFAFA]/40">
-            Available for projects
-          </span>
+        {/* Bottom line with year */}
+        <div className="absolute bottom-0 left-0 right-0 px-6 sm:px-8 lg:px-12">
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={isLoaded ? { scaleX: 1 } : {}}
+            transition={{ duration: 1, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="h-px bg-[#0A0A0A]/10 origin-left"
+          />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isLoaded ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="py-6 flex justify-between items-center"
+          >
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#0A0A0A]/30">
+              ©2026
+            </span>
+            <motion.a
+              href="#work"
+              className="group flex items-center gap-3"
+              whileHover={{ x: 5 }}
+              transition={{ duration: 0.3 }}
+            >
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#0A0A0A]/40 group-hover:text-[#0A0A0A] transition-colors duration-300">
+                View work
+              </span>
+              <span className="text-[#0A0A0A]/40 group-hover:text-[#0A0A0A] transition-colors duration-300">
+                ↓
+              </span>
+            </motion.a>
+          </motion.div>
         </div>
       </div>
 
-      {/* Floating CTA */}
-      <div
-        className={`fixed bottom-8 left-8 z-50 transition-all duration-500 ${
-          showCTA
-            ? "translate-y-0 opacity-100"
-            : "pointer-events-none translate-y-4 opacity-0"
-        }`}
-      >
-        <a
-          href="mailto:hello@biswajitrath.dev"
-          className="group flex items-center gap-3 border border-[#111111] bg-[#FAFAFA] px-4 py-3 transition-all duration-300 hover:bg-[#111111] hover:text-[#FAFAFA] dark:border-[#FAFAFA] dark:bg-[#111111] dark:hover:bg-[#FAFAFA] dark:hover:text-[#111111]"
-        >
-          <span className="font-mono text-xs uppercase tracking-widest">
-            Get in touch
-          </span>
-          <span className="text-sm transition-transform duration-300 group-hover:translate-x-1">
-            →
-          </span>
-        </a>
-      </div>
-
-      {/* Scroll indicator */}
-      <div
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 ${
-          isLoaded ? "animate-fade-in" : "opacity-0"
-        }`}
-        style={{ animationDelay: "800ms" }}
-      >
-        <div className="flex flex-col items-center gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-[#111111]/30 dark:text-[#FAFAFA]/30">
-            Scroll
-          </span>
-          <div className="h-12 w-px bg-gradient-to-b from-[#111111]/30 to-transparent dark:from-[#FAFAFA]/30" />
-        </div>
-      </div>
+      {/* Subtle cursor-aware gradient */}
+      <motion.div
+        className="pointer-events-none absolute inset-0 opacity-30"
+        style={{
+          background: `radial-gradient(circle at ${mousePosition.x * 100}% ${mousePosition.y * 100}%, rgba(10, 10, 10, 0.02) 0%, transparent 50%)`,
+        }}
+      />
     </section>
   );
 }
