@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Outfit } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { LenisProvider } from "@/providers/LenisProvider";
 
@@ -15,16 +15,10 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const outfit = Outfit({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  title: "Biswajit Rath — Backend Developer",
-  description: "Building systems that scale. Backend architecture, API design, and production-ready systems.",
+  title: "Biswajit Rath — Backend Engineer",
+  description:
+    "Backend architecture, API design, and production-grade distributed systems.",
 };
 
 export default function RootLayout({
@@ -35,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" style={{ colorScheme: "light" }}>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} ${outfit.variable} font-sans antialiased overflow-x-hidden`}
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased overflow-x-hidden`}
       >
         <LenisProvider>{children}</LenisProvider>
       </body>

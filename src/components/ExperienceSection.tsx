@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 type Experience = {
   period: string;
@@ -25,7 +25,7 @@ const EXPERIENCES: Experience[] = [
     role: "Backend Developer",
     company: "Digital Agency",
     description:
-      "Built and maintained APIs for enterprise clients across healthcare and e-commerce sectors.",
+      "Built and maintained APIs for enterprise clients across healthcare and e-commerce.",
     technologies: ["Node.js", "TypeScript", "MongoDB", "AWS"],
   },
   {
@@ -33,185 +33,75 @@ const EXPERIENCES: Experience[] = [
     role: "Software Engineer",
     company: "Product Company",
     description:
-      "Full-stack development with focus on backend services and database optimization.",
+      "Full-stack development with a focus on backend services and database optimization.",
     technologies: ["Python", "Django", "PostgreSQL", "Docker"],
   },
 ];
 
+const ease = [0.16, 1, 0.3, 1] as const;
+
 export function ExperienceSection() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
 
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#FAFAFA] py-32 text-[#111111] sm:py-40"
+      className="relative bg-[#FAFAFA] py-14 sm:py-16"
     >
-      <div className="mx-auto max-w-6xl px-6 sm:px-8">
-        {/* Section header - LEFT aligned */}
-        <div className="relative mb-20 sm:mb-32">
-          {/* Faded number */}
-          <motion.span
-            initial={{ opacity: 0, x: -50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute -left-4 -top-8 font-mono text-[8rem] font-bold leading-none text-[#111111]/[0.03] sm:-left-8 sm:-top-16 sm:text-[12rem]"
-          >
-            05
-          </motion.span>
+      <div className="mx-auto max-w-3xl px-6 sm:px-8">
+        {/* Section divider */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.8, ease }}
+          className="h-px bg-[#0A0A0A]/10 origin-left"
+        />
 
-          {/* Content */}
-          <div className="relative">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-4 font-mono text-xs uppercase tracking-widest text-[#111111]/40"
-            >
-              Career journey
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="font-display text-[clamp(4rem,12vw,10rem)] font-extrabold leading-[0.85] tracking-[-0.045em]"
-            >
-              Experience
-            </motion.h2>
-          </div>
-        </div>
+        <motion.h2
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="mt-10 text-[13px] font-medium text-[#0A0A0A]/40 tracking-[-0.01em]"
+        >
+          Experience
+        </motion.h2>
 
         {/* Experience items */}
-        <div className="space-y-0">
+        <div className="mt-8">
           {EXPERIENCES.map((exp, i) => (
             <motion.div
               key={exp.period}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
-              onMouseEnter={() => setHoveredIndex(i)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              className="group relative border-t border-[#111111]/10 py-8 sm:py-12"
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
+              className="border-t border-[#0A0A0A]/[0.06] py-7 sm:py-8"
             >
-              {/* Hover background */}
-              <motion.div
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: hoveredIndex === i ? 1 : 0 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 origin-top bg-[#111111]/[0.02]"
-              />
-
-              <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-12 sm:gap-8">
-                {/* Period */}
-                <div className="sm:col-span-3">
-                  <motion.span
-                    animate={{ x: hoveredIndex === i ? 4 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="font-mono text-xs uppercase tracking-widest text-[#111111]/40"
-                  >
-                    {exp.period}
-                  </motion.span>
-                </div>
-
-                {/* Content */}
-                <div className="sm:col-span-6">
-                  <motion.h3
-                    animate={{ x: hoveredIndex === i ? 8 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="text-xl font-semibold tracking-tight sm:text-2xl"
-                  >
+              <div className="flex flex-col sm:flex-row sm:items-start sm:gap-8">
+                <span className="font-mono text-[12px] text-[#0A0A0A]/30 sm:w-[140px] shrink-0">
+                  {exp.period}
+                </span>
+                <div className="mt-2 sm:mt-0 flex-1">
+                  <p className="text-[15px] font-medium tracking-[-0.01em] text-[#0A0A0A]">
                     {exp.role}
-                  </motion.h3>
-                  <p className="mt-1 text-sm text-[#111111]/60">{exp.company}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-[#111111]/60">
+                  </p>
+                  <p className="mt-1 text-[13px] text-[#0A0A0A]/30">
+                    {exp.company}
+                  </p>
+                  <p className="mt-3 text-[14px] leading-[1.7] text-[#0A0A0A]/40">
                     {exp.description}
                   </p>
-                </div>
-
-                {/* Technologies */}
-                <div className="sm:col-span-3">
-                  <motion.div
-                    initial={{ opacity: 0.4 }}
-                    animate={{ opacity: hoveredIndex === i ? 1 : 0.4 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex flex-wrap gap-2 sm:justify-end"
-                  >
-                    {exp.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="font-mono text-xs text-[#111111]/60"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </motion.div>
+                  <p className="mt-3 font-mono text-[11px] text-[#0A0A0A]/20">
+                    {exp.technologies.join(" · ")}
+                  </p>
                 </div>
               </div>
-
-              {/* Arrow indicator */}
-              <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{
-                  opacity: hoveredIndex === i ? 1 : 0,
-                  x: hoveredIndex === i ? 0 : -10,
-                }}
-                transition={{ duration: 0.3 }}
-                className="absolute right-0 top-1/2 -translate-y-1/2 text-[#111111]/40"
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <path d="M7 17L17 7M17 7H7M17 7V17" />
-                </svg>
-              </motion.div>
             </motion.div>
           ))}
-        </div>
 
-        {/* Resume link */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          className="mt-16 flex justify-center"
-        >
-          <a
-            href="/resume.pdf"
-            className="group inline-flex items-center gap-3 border border-[#111111]/20 px-8 py-4 font-mono text-xs uppercase tracking-widest transition-all duration-300 hover:border-[#111111] hover:bg-[#111111] hover:text-[#FAFAFA]"
-          >
-            View full resume
-            <motion.span
-              initial={{ x: 0 }}
-              whileHover={{ x: 4 }}
-              className="transition-transform"
-            >
-              →
-            </motion.span>
-          </a>
-        </motion.div>
+          {/* Final border */}
+          <div className="border-t border-[#0A0A0A]/[0.06]" />
+        </div>
       </div>
     </section>
   );
