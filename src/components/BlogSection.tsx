@@ -54,22 +54,14 @@ export function BlogSection() {
     <section
       ref={sectionRef}
       id="blog"
-      className="relative bg-[#FAFAFA] py-14 sm:py-16"
+      className="relative bg-[#FAFAFA] py-8 sm:py-10"
     >
       <div className="mx-auto max-w-3xl px-6 sm:px-8">
-        {/* Section divider */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={isInView ? { scaleX: 1 } : {}}
-          transition={{ duration: 0.8, ease }}
-          className="h-px bg-[#0A0A0A]/10 origin-left"
-        />
-
         <motion.h2
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mt-10 text-[13px] font-medium text-[#0A0A0A]/40 tracking-[-0.01em]"
+          className="text-[13px] font-medium text-[#0A0A0A]/50 tracking-[-0.01em] uppercase letter-spacing"
         >
           Writing
         </motion.h2>
@@ -82,7 +74,7 @@ export function BlogSection() {
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
-              className="group border-t border-[#0A0A0A]/[0.06] py-7 sm:py-8 cursor-pointer"
+              className="group border-t border-[#0A0A0A]/[0.06] py-5 sm:py-6 cursor-pointer"
             >
               <div className="flex items-start justify-between gap-6">
                 <div className="min-w-0 flex-1">
@@ -100,7 +92,7 @@ export function BlogSection() {
                   <h3 className="text-[16px] font-medium tracking-[-0.01em] text-[#0A0A0A] group-hover:text-[#0A0A0A]/70 transition-colors duration-300">
                     {post.title}
                   </h3>
-                  <p className="mt-2 text-[14px] leading-[1.65] text-[#0A0A0A]/40">
+                  <p className="mt-2 text-[15px] leading-[1.75] text-[#0A0A0A]/55">
                     {post.summary}
                   </p>
                 </div>
@@ -115,13 +107,7 @@ export function BlogSection() {
             </motion.article>
           ))}
 
-          {/* Final divider */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={isInView ? { scaleX: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.4, ease }}
-            className="h-px bg-[#0A0A0A]/[0.06] origin-left"
-          />
+          <div className="border-t border-[#0A0A0A]/[0.06] mt-2" />
         </div>
 
         {/* Subscribe */}
@@ -129,16 +115,16 @@ export function BlogSection() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.45 }}
-          className="mt-10"
+          className="mt-6"
         >
-          <p className="text-[14px] text-[#0A0A0A]/40 mb-4">
+          <p className="text-[15px] text-[#0A0A0A]/50 mb-3 leading-[1.7]">
             Occasional writing on backend engineering, system design,
             and the tools I use. No spam.
           </p>
 
           {submitted ? (
             <p className="text-[14px] text-[#0A0A0A]/50">
-              Thanks&mdash;you&apos;re on the list.
+              Thanks - you&apos;re on the list.
             </p>
           ) : (
             <form onSubmit={handleSubscribe} className="flex gap-3">

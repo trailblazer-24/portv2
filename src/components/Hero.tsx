@@ -30,9 +30,9 @@ export function Hero() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease }}
-          className="mt-12 text-[clamp(1.5rem,3vw,1.875rem)] font-normal leading-[1.5] tracking-[-0.01em] text-[#0A0A0A]/85 max-w-[560px]"
+          className="mt-8 text-[clamp(1.625rem,3vw,2rem)] font-normal leading-[1.6] tracking-[-0.01em] text-[#0A0A0A] max-w-[560px]"
         >
-          I build the systems that products depend on&mdash;APIs, databases,
+          I build the systems that products depend on - APIs, databases,
           and distributed services designed for reliability and scale.
         </motion.h1>
 
@@ -40,7 +40,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.35, ease }}
-          className="mt-6 text-[15px] leading-[1.75] text-[#0A0A0A]/40 max-w-[480px]"
+          className="mt-5 text-[16px] leading-[1.8] text-[#0A0A0A]/55 max-w-[480px]"
         >
           I think about architecture as trade-offs. Performance vs.&nbsp;cost,
           consistency vs.&nbsp;availability, simplicity vs.&nbsp;flexibility.

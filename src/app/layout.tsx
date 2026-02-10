@@ -16,7 +16,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Biswajit Rath — Backend Engineer",
+  title: "Biswajit Rath - Backend Engineer",
   description:
     "Backend architecture, API design, and production-grade distributed systems.",
 };
