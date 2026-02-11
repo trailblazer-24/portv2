@@ -57,14 +57,25 @@ export function BlogSection() {
       className="relative bg-[#FAFAFA] py-8 sm:py-10"
     >
       <div className="mx-auto max-w-3xl px-6 sm:px-8">
-        <motion.h2
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-[13px] font-medium text-[#0A0A0A]/50 tracking-[-0.01em] uppercase letter-spacing"
-        >
-          Writing
-        </motion.h2>
+        <div className="flex items-center justify-between">
+          <motion.h2
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-[13px] font-medium text-[#0A0A0A]/50 tracking-[-0.01em] uppercase letter-spacing"
+          >
+            Writing
+          </motion.h2>
+          <motion.a
+            href="/blog"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-[13px] text-[#0A0A0A]/40 hover:text-[#0A0A0A] transition-colors duration-200"
+          >
+            View more &rarr;
+          </motion.a>
+        </div>
 
         {/* Posts */}
         <div className="mt-8">
