@@ -35,7 +35,7 @@ export function Hero({ isReady = true }: HeroProps) {
   }, [isReady]);
 
   return (
-    <section className="relative min-h-screen bg-[#FAFAFA] text-[#111111] dark:bg-[#111111] dark:text-[#FAFAFA]">
+    <section className="relative min-h-screen bg-[#F5F2EE] text-[#111111] dark:bg-[#111111] dark:text-[#FAFAFA]">
       {/* Grid container */}
       <div className="mx-auto grid min-h-screen max-w-6xl grid-cols-12 gap-4 px-6 py-6 sm:px-8">
         {/* Header */}

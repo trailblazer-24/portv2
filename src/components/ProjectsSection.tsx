@@ -68,7 +68,7 @@ export function ProjectsSection() {
     <section
       ref={sectionRef}
       id="work"
-      className="relative bg-[#FAFAFA] py-32 text-[#111111] dark:bg-[#111111] dark:text-[#FAFAFA] sm:py-40"
+      className="relative bg-[#F5F2EE] py-32 text-[#111111] dark:bg-[#111111] dark:text-[#FAFAFA] sm:py-40"
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
         <div className="relative mb-20 sm:mb-32">

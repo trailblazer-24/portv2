@@ -55,7 +55,7 @@ export function BenefitsSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#111111] py-32 text-[#FAFAFA] dark:bg-[#FAFAFA] dark:text-[#111111] sm:py-40"
+      className="relative bg-[#111111] py-32 text-[#FAFAFA] dark:bg-[#F5F2EE] dark:text-[#111111] sm:py-40"
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
         {/* Section header - RIGHT aligned */}

@@ -3,36 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-function LiveDateTime() {
-  const [now, setNow] = useState<Date | null>(null);
-
-  useEffect(() => {
-    setNow(new Date());
-    const id = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  if (!now) return null;
-
-  const date = now.toLocaleDateString(undefined, {
-    month: "short",
-    day: "2-digit",
-    year: "numeric",
-  });
-
-  const time = now.toLocaleTimeString(undefined, {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  });
-
-  return (
-    <span className="font-mono text-xs text-[#111111]/40">
-      {date} - {time}
-    </span>
-  );
-}
-
 export function ContactFooter() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -70,11 +40,11 @@ export function ContactFooter() {
     <section
       id="contact"
       ref={sectionRef}
-      className="relative bg-[#FAFAFA] text-[#111111]"
+      className="relative bg-[#F5F2EE] text-[#111111]"
     >
       {/* ── Contact CTA ── */}
       <div className="mx-auto max-w-6xl px-6 pt-20 sm:px-8 sm:pt-28">
-        <div className="relative border-t border-[#111111]/10 pt-16 sm:pt-20">
+        <div className="relative border-[#111111]/10 pt-16 sm:pt-20">
           {/* Faded number */}
           <motion.span
             initial={{ opacity: 0, x: -50 }}
@@ -194,8 +164,6 @@ export function ContactFooter() {
       <footer className="mx-auto mt-20 max-w-6xl px-6 pb-8 sm:mt-28 sm:px-8">
         <div className="border-t border-[#111111]/10 pt-6">
           <div className="flex items-center justify-between">
-            <LiveDateTime />
-
             <p className="font-mono text-[10px] uppercase tracking-widest text-[#111111]/30">
               © {new Date().getFullYear()} Biswajit Rath
             </p>
@@ -206,6 +174,22 @@ export function ContactFooter() {
             >
               Back to top ↑
             </a>
+
+            <div className="flex items-center gap-1 font-mono text-[10px] uppercase tracking-widest text-[#111111]/40">
+              <a
+                href="#"
+                className="transition-colors hover:text-[#111111]"
+              >
+                Archive &rsquo;25
+              </a>
+              <span>·</span>
+              <a
+                href="#"
+                className="transition-colors hover:text-[#111111]"
+              >
+                Archive &rsquo;24
+              </a>
+            </div>
           </div>
         </div>
       </footer>
