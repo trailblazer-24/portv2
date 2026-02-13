@@ -23,7 +23,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Biswajit Rath — Backend Developer",
+  title: "Biswajit Rath '2026",
   description: "Building systems that scale. Backend architecture, API design, and production-ready systems.",
 };
 

@@ -14,7 +14,7 @@ const BENEFITS: Benefit[] = [
     number: "01",
     title: "Custom Architecture",
     description:
-      "Every system is designed around your scale, data model, and business constraints—no generic templates or over-engineering.",
+      "Every system is designed around your scale, data model, and business constraints-no generic templates or over-engineering.",
   },
   {
     number: "02",
@@ -26,7 +26,7 @@ const BENEFITS: Benefit[] = [
     number: "03",
     title: "Built to Scale",
     description:
-      "Clean codebases, clear boundaries, and long-term maintainability are baked in from day one—not added later.",
+      "Clean codebases, clear boundaries, and long-term maintainability are baked in from day one-not added later.",
   },
 ];
 

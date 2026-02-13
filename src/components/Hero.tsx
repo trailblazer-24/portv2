@@ -220,12 +220,6 @@ export function Hero({ isReady = true }: HeroProps) {
         }`}
         style={{ animationDelay: "800ms" }}
       >
-        <div className="flex flex-col items-center gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-[#111111]/30 dark:text-[#FAFAFA]/30">
-            Scroll
-          </span>
-          <div className="h-12 w-px bg-gradient-to-b from-[#111111]/30 to-transparent dark:from-[#FAFAFA]/30" />
-        </div>
       </div>
     </section>
   );

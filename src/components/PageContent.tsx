@@ -10,7 +10,7 @@ import { ServicesSection } from "@/components/ServicesSection";
 import { ProcessSection } from "@/components/ProcessSection";
 import { ExperienceSection } from "@/components/ExperienceSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
-import { ClosingSection } from "@/components/ClosingSection";
+import { ContactFooter } from "@/components/ContactFooter";
 
 export function PageContent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +40,7 @@ export function PageContent() {
         <ProcessSection />
         <ExperienceSection />
         <TestimonialsSection />
-        <ClosingSection />
+        <ContactFooter />
       </motion.div>
     </>
   );

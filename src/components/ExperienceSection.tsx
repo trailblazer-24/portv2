@@ -13,29 +13,21 @@ type Experience = {
 
 const EXPERIENCES: Experience[] = [
   {
-    period: "2023 — Present",
-    role: "Senior Backend Engineer",
+    period: "2026 - Present",
+    role: "Full Stack Developer",
     company: "Tech Startup",
     description:
-      "Leading backend architecture for a high-scale fintech platform processing millions of transactions.",
-    technologies: ["Go", "PostgreSQL", "Redis", "Kubernetes"],
+      "Developing scalable end-to-end features across frontend and backend for a high-growth car pooling platform.",
+    technologies: ["NodeJS", "PostgreSQL", "AWS", "Java"],
   },
   {
-    period: "2021 — 2023",
-    role: "Backend Developer",
-    company: "Digital Agency",
+    period: "2024 - 2026",
+    role: "Software Developer",
+    company: "Certifying Authority",
     description:
-      "Built and maintained APIs for enterprise clients across healthcare and e-commerce sectors.",
-    technologies: ["Node.js", "TypeScript", "MongoDB", "AWS"],
-  },
-  {
-    period: "2019 — 2021",
-    role: "Software Engineer",
-    company: "Product Company",
-    description:
-      "Full-stack development with focus on backend services and database optimization.",
-    technologies: ["Python", "Django", "PostgreSQL", "Docker"],
-  },
+      "Built automation tools using Python with Playwright and Selenium to streamline certificate workflows, testing, and compliance processes.",
+    technologies: ["Python", "Playwright", "Selenium"],
+  }
 ];
 
 export function ExperienceSection() {
@@ -167,7 +159,7 @@ export function ExperienceSection() {
               </div>
 
               {/* Arrow indicator */}
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, x: -10 }}
                 animate={{
                   opacity: hoveredIndex === i ? 1 : 0,
@@ -186,7 +178,7 @@ export function ExperienceSection() {
                 >
                   <path d="M7 17L17 7M17 7H7M17 7V17" />
                 </svg>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
           ))}
         </div>

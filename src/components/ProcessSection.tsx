@@ -123,10 +123,10 @@ export function ProcessSection() {
                   animate={{
                     scale: hoveredIndex === i ? 1.2 : 1,
                     backgroundColor:
-                      hoveredIndex === i ? "#FAFAFA" : "transparent",
+                      hoveredIndex === i ? "#FAFAFA" : "#111111",
                   }}
                   transition={{ duration: 0.3 }}
-                  className="relative z-10 mb-6 flex h-14 w-14 items-center justify-center border border-[#FAFAFA]/30"
+                  className="relative z-20 mb-6 flex h-14 w-14 items-center justify-center border border-[#FAFAFA]/30"
                 >
                   <motion.span
                     animate={{

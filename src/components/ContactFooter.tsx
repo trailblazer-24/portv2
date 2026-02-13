@@ -3,7 +3,37 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-export function ClosingSection() {
+function LiveDateTime() {
+  const [now, setNow] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setNow(new Date());
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  if (!now) return null;
+
+  const date = now.toLocaleDateString(undefined, {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  });
+
+  const time = now.toLocaleTimeString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+
+  return (
+    <span className="font-mono text-xs text-[#111111]/40">
+      {date} - {time}
+    </span>
+  );
+}
+
+export function ContactFooter() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -24,15 +54,27 @@ export function ClosingSection() {
     return () => observer.disconnect();
   }, []);
 
+  const socialLinks = [
+    {
+      label: "GitHub",
+      href: "https://github.com/biswajitrath",
+    },
+    {
+      label: "LinkedIn",
+      href: "https://linkedin.com/in/biswajitrath",
+    }
+  ];
+
+
   return (
     <section
-      id="closing"
+      id="contact"
       ref={sectionRef}
-      className="relative bg-[#FAFAFA] py-32 text-[#111111] sm:py-40"
+      className="relative bg-[#FAFAFA] text-[#111111]"
     >
-      <div className="mx-auto max-w-6xl px-6 sm:px-8">
-        {/* Main CTA */}
-        <div className="relative mb-24 border-y border-[#111111]/10 py-20 sm:py-32">
+      {/* ── Contact CTA ── */}
+      <div className="mx-auto max-w-6xl px-6 pt-20 sm:px-8 sm:pt-28">
+        <div className="relative border-t border-[#111111]/10 pt-16 sm:pt-20">
           {/* Faded number */}
           <motion.span
             initial={{ opacity: 0, x: -50 }}
@@ -43,9 +85,9 @@ export function ClosingSection() {
             07
           </motion.span>
 
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-            {/* Left content */}
-            <div className="lg:col-span-8">
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
+            {/* Left - headline & CTA */}
+            <div className="lg:col-span-7">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
@@ -59,7 +101,7 @@ export function ClosingSection() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-[clamp(3rem,10vw,8rem)] font-bold leading-[0.85] tracking-[-0.04em]"
+                className="text-[clamp(3rem,10vw,7rem)] font-bold leading-[0.85] tracking-[-0.04em]"
               >
                 Let&apos;s
                 <br />
@@ -81,66 +123,61 @@ export function ClosingSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                href="mailto:hello@biswajitrath.dev"
+                href="mailto:hello@biswajitrath.com"
                 className="group mt-10 inline-flex items-center gap-4 border border-[#111111] px-8 py-4 font-mono text-sm uppercase tracking-widest transition-all duration-300 hover:bg-[#111111] hover:text-[#FAFAFA]"
               >
                 Get in touch
-                <motion.span
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 4 }}
-                  className="transition-transform duration-300 group-hover:translate-x-2"
-                >
+                <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">
                   →
-                </motion.span>
+                </span>
               </motion.a>
             </div>
 
-            {/* Right contact info */}
+            {/* Right - contact details */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="flex flex-col justify-end lg:col-span-4"
+              className="flex flex-col justify-end lg:col-span-5"
             >
               <div className="space-y-8">
-                <div className="group">
+                {/* Email */}
+                <div>
                   <span className="font-mono text-[10px] uppercase tracking-widest text-[#111111]/40">
                     Email
                   </span>
                   <a
-                    href="mailto:hello@biswajitrath.dev"
+                    href="mailto:hello@biswajitrath.com"
                     className="mt-2 block text-sm transition-opacity hover:opacity-60"
                   >
-                    hello@biswajitrath.dev
+                    hello@biswajitrath.com
                   </a>
                 </div>
 
+                {/* Social */}
                 <div>
                   <span className="font-mono text-[10px] uppercase tracking-widest text-[#111111]/40">
                     Social
                   </span>
                   <div className="mt-2 flex flex-col gap-2">
-                    <a
-                      href="#github"
-                      className="group inline-flex items-center gap-2 text-sm transition-opacity hover:opacity-60"
-                    >
-                      GitHub
-                      <span className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
-                        ↗
-                      </span>
-                    </a>
-                    <a
-                      href="#linkedin"
-                      className="group inline-flex items-center gap-2 text-sm transition-opacity hover:opacity-60"
-                    >
-                      LinkedIn
-                      <span className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
-                        ↗
-                      </span>
-                    </a>
+                    {socialLinks.map((link) => (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-flex items-center gap-2 text-sm transition-opacity hover:opacity-60"
+                      >
+                        {link.label}
+                        <span className="inline-block transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                          ↗
+                        </span>
+                      </a>
+                    ))}
                   </div>
                 </div>
 
+                {/* Location */}
                 <div>
                   <span className="font-mono text-[10px] uppercase tracking-widest text-[#111111]/40">
                     Location
@@ -151,34 +188,27 @@ export function ClosingSection() {
             </motion.div>
           </div>
         </div>
-
-        {/* Footer */}
-        <motion.footer
-          initial={{ opacity: 0, y: 20 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="grid grid-cols-1 gap-4 sm:grid-cols-3"
-        >
-          <span className="font-mono text-xs text-[#111111]/40">
-            © {new Date().getFullYear()} Biswajit Rath
-          </span>
-
-          <span className="font-mono text-xs text-[#111111]/40 sm:text-center">
-            Built with precision
-          </span>
-
-          <a
-            href="#top"
-            className="group inline-flex items-center gap-2 font-mono text-xs text-[#111111]/40 transition-colors hover:text-[#111111] sm:justify-end"
-          >
-            Back to top
-            <span className="transition-transform group-hover:-translate-y-1">
-              ↑
-            </span>
-          </a>
-        </motion.footer>
       </div>
+
+      {/* ── Footer ── */}
+      <footer className="mx-auto mt-20 max-w-6xl px-6 pb-8 sm:mt-28 sm:px-8">
+        <div className="border-t border-[#111111]/10 pt-6">
+          <div className="flex items-center justify-between">
+            <LiveDateTime />
+
+            <p className="font-mono text-[10px] uppercase tracking-widest text-[#111111]/30">
+              © {new Date().getFullYear()} Biswajit Rath
+            </p>
+
+            <a
+              href="#top"
+              className="font-mono text-[10px] uppercase tracking-widest text-[#111111]/40 transition-colors hover:text-[#111111]"
+            >
+              Back to top ↑
+            </a>
+          </div>
+        </div>
+      </footer>
     </section>
   );
 }
-

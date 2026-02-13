@@ -9,41 +9,37 @@ type Project = {
   description: string;
   stack: string[];
   index: string;
+  url: string;
 };
 
 const PROJECTS: Project[] = [
   {
-    index: "01",
-    title: "NexusGPT Platform",
+    index: "00",
+    title: "Smart Contact Manager",
     year: "2024",
     description:
-      "Scalable backend powering AI-driven workflows, authentication, and real-time data processing. Handles 1M+ requests/month.",
-    stack: ["Node.js", "PostgreSQL", "Redis", "AWS"],
+      "Secure web application built with Java Spring Boot that helps users manage their personal and professional contacts efficiently.",
+    stack: ["Springboot", "PostgreSQL", "Maven", "AWS"],
+    url: "https://biswajitrath.com/",
+  },
+  {
+    index: "01",
+    title: "Whiteboard Now",
+    year: "2024",
+    description:
+      "A real-time collaborative online whiteboard inspired by tools like Miro. It allows teams to brainstorm, plan, and organize ideas visually in a shared digital workspace.",
+    stack: ["NextJS", "Socket.io", "Clerk", "Vercel"],
+    url: "https://whiteboard.biswajitrath.com/",
   },
   {
     index: "02",
-    title: "Time Tracking API",
+    title: "Status200",
     year: "2024",
     description:
-      "RESTful API for time logging, reporting, and team-based analytics with role-based access. Sub-200ms average response time.",
-    stack: ["NestJS", "PostgreSQL", "JWT", "Docker"],
-  },
-  {
-    index: "03",
-    title: "AI Research Pipeline",
-    year: "2024",
-    description:
-      "Event-driven data ingestion and processing pipeline for large-scale AI experiments. Processes millions of events daily.",
-    stack: ["Python", "Kafka", "ClickHouse", "AWS"],
-  },
-  {
-    index: "04",
-    title: "E-commerce Services",
-    year: "2024",
-    description:
-      "Order, payment, and inventory services designed for high availability and consistency. Zero-downtime deployments.",
-    stack: ["Node.js", "MongoDB", "Stripe", "K8s"],
-  },
+      "Search engine for public APIs. Browse thousands of endpoints, test them instantly in your browser, and generate client code with AI.",
+    stack: ["NodeJS", "GeminiAPI", "Github", "Vercel"],
+    url: "https://status200.biswajitrath.com/",
+  }
 ];
 
 export function ProjectsSection() {
@@ -75,9 +71,7 @@ export function ProjectsSection() {
       className="relative bg-[#FAFAFA] py-32 text-[#111111] dark:bg-[#111111] dark:text-[#FAFAFA] sm:py-40"
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
-        {/* Section header - LEFT aligned */}
         <div className="relative mb-20 sm:mb-32">
-          {/* Faded number */}
           <motion.span
             initial={{ opacity: 0, x: -50 }}
             animate={isVisible ? { opacity: 1, x: 0 } : {}}
@@ -108,17 +102,19 @@ export function ProjectsSection() {
           </div>
         </div>
 
-        {/* Projects list */}
         <div className="space-y-0">
           {PROJECTS.map((project, i) => (
-            <motion.article
+            <motion.a
               key={project.title}
+              href={project.url}
+              target="_blank"
+              rel="noreferrer"
               initial={{ opacity: 0, y: 40 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 + i * 0.1 }}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className="group relative cursor-pointer border-t border-[#111111]/10 py-8 transition-all duration-500 dark:border-[#FAFAFA]/10 sm:py-12"
+              className="group relative block cursor-pointer border-t border-[#111111]/10 py-8 transition-all duration-500 dark:border-[#FAFAFA]/10 sm:py-12"
             >
               {/* Hover background */}
               <motion.div
@@ -188,7 +184,7 @@ export function ProjectsSection() {
                   </span>
                 ))}
               </motion.div>
-            </motion.article>
+            </motion.a>
           ))}
         </div>
       </div>
