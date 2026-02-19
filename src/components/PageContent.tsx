@@ -9,7 +9,7 @@ import { BenefitsSection } from "@/components/BenefitsSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { ProcessSection } from "@/components/ProcessSection";
 import { ExperienceSection } from "@/components/ExperienceSection";
-import { TestimonialsSection } from "@/components/TestimonialsSection";
+import { WritingsSection } from "@/components/WritingsSection";
 import { ContactFooter } from "@/components/ContactFooter";
 
 export function PageContent() {
@@ -39,7 +39,7 @@ export function PageContent() {
         <ServicesSection />
         <ProcessSection />
         <ExperienceSection />
-        <TestimonialsSection />
+        <WritingsSection />
         <ContactFooter />
       </motion.div>
     </>

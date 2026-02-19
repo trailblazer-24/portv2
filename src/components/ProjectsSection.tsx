@@ -20,7 +20,7 @@ const PROJECTS: Project[] = [
     description:
       "Secure web application built with Java Spring Boot that helps users manage their personal and professional contacts efficiently.",
     stack: ["Springboot", "PostgreSQL", "Maven", "AWS"],
-    url: "https://biswajitrath.com/",
+    url: "/coming-soon",
   },
   {
     index: "01",

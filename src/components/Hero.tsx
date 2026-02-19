@@ -56,13 +56,13 @@ export function Hero({ isReady = true }: HeroProps) {
               Work
             </a>
             <a
-              href="#blog"
+              href="/blog"
               className="link-underline font-mono text-xs uppercase tracking-widest text-[#111111]/60 transition-colors hover:text-[#111111] dark:text-[#FAFAFA]/60 dark:hover:text-[#FAFAFA]"
             >
               Blog
             </a>
             <a
-              href="mailto:hello@biswajitrath.dev"
+              href="mailto:hello@biswajitrath.com"
               className="border border-[#111111] px-4 py-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 hover:bg-[#111111] hover:text-[#FAFAFA] dark:border-[#FAFAFA] dark:hover:bg-[#FAFAFA] dark:hover:text-[#111111]"
             >
               Contact
