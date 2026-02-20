@@ -202,7 +202,7 @@ export function Hero({ isReady = true }: HeroProps) {
       >
         <a
           href="mailto:hello@biswajitrath.dev"
-          className="group flex items-center gap-3 border border-[#111111] bg-[#FAFAFA] px-4 py-3 transition-all duration-300 hover:bg-[#111111] hover:text-[#FAFAFA] dark:border-[#FAFAFA] dark:bg-[#111111] dark:hover:bg-[#FAFAFA] dark:hover:text-[#111111]"
+          className="group flex items-center gap-3 border border-[#111111] bg-[#F5F2EE] px-4 py-3 transition-all duration-300 hover:bg-[#111111] hover:text-[#FAFAFA] dark:border-[#FAFAFA] dark:bg-[#111111] dark:hover:bg-[#FAFAFA] dark:hover:text-[#111111]"
         >
           <span className="font-mono text-xs uppercase tracking-widest">
             Get in touch
