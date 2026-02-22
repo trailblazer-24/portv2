@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { Inter, JetBrains_Mono, Syne } from "next/font/google";
 import "./globals.css";
 import { LenisProvider } from "@/providers/LenisProvider";
 
@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const syne = Syne({
   variable: "--font-display",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="light" style={{ colorScheme: "light" }}>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable} font-sans antialiased overflow-x-hidden`}
+        className={`${inter.variable} ${jetbrainsMono.variable} ${syne.variable} font-sans antialiased overflow-x-hidden`}
       >
         <LenisProvider>{children}</LenisProvider>
       </body>

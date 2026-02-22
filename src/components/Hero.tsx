@@ -7,7 +7,7 @@ interface HeroProps {
 }
 
 export function Hero({ isReady = true }: HeroProps) {
-  const [showCTA, setShowCTA] = useState(true);
+  const [showCTA, setShowCTA] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -20,13 +20,23 @@ export function Hero({ isReady = true }: HeroProps) {
       const sections = document.querySelectorAll("section");
       if (sections.length === 0) return;
 
+      // Get the hero section (first section)
+      const heroSection = sections[0];
+      const heroRect = heroSection.getBoundingClientRect();
+
+      // Get the last section
       const lastSection = sections[sections.length - 1];
       const lastSectionRect = lastSection.getBoundingClientRect();
 
-      if (lastSectionRect.top < window.innerHeight * 0.8) {
-        setShowCTA(false);
-      } else {
+      // Show CTA only between hero section and last section
+      // Hero must be scrolled out AND last section must not be visible yet
+      const heroScrolledOut = heroRect.top < 0;
+      const lastSectionNotVisible = lastSectionRect.top > window.innerHeight;
+
+      if (heroScrolledOut && lastSectionNotVisible) {
         setShowCTA(true);
+      } else {
+        setShowCTA(false);
       }
     };
 
@@ -102,7 +112,7 @@ export function Hero({ isReady = true }: HeroProps) {
             style={{ animationDelay: "300ms" }}
           >
             I design and implement backend systems.
-            <br></br>APIs, databases, and distributed services.
+            <br></br>APIs. Databases. Distributed services.
           </p>
 
           {/* CTA */}
