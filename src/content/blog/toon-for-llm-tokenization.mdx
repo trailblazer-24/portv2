@@ -1,0 +1,407 @@
+---
+title: 'Cut Your LLM Token Bill in Half - How TOON Rewrites the Rules of JSON'
+publishedAt: '2025-11-02'
+summary: 'Discover how TOON (Token-Oriented Object Notation) can reduce your LLM API costs by 30-60% through smarter data formatting designed specifically for AI applications.'
+image: '/static/images/blog/tokens-llms-tokenization.webp'
+tags: ['LLM', 'AI', 'Optimization', 'TOON', 'Cost Savings']
+tocMaxLevel: 2
+---
+
+# Introduction
+
+If you're building with Large Language Models (LLMs), you've probably felt the pain. You carefully craft the perfect prompt, feed it a big chunk of data in JSON format, and then wince as you watch your token counter spin like a slot machine. Every bracket, every comma, and every repeated key in your data array costs you money and precious context window space.
+
+It feels wasteful, right? We're sending these super-intelligent models data in a format that's famously verbose, designed for machines, not for token-based accounting.
+
+Well, there's a new format gaining serious traction, and it's built to solve this exact problem. It's called **TOON** (Token-Oriented Object Notation), and it might just be the best friend your LLM wallet ever had.
+
+# What Exactly is TOON?
+
+In simple terms, TOON is a new data format, like JSON or YAML, but it's specifically designed to be as **token-efficient** as possible for LLMs.
+
+It's not here to replace JSON in your entire application. Instead, think of it as a "translation layer." You work with JSON or regular objects in your code, but right before you send that data to an LLM, you convert it to TOON.
+
+The core idea is to be human-readable (like YAML) while being incredibly compact (like a CSV). It achieves this by ruthlessly cutting out the "fluff" that LLMs don't really need but that tokenizers count anyway.
+
+## Key Design Principles
+
+TOON was built with three principles in mind:
+
+1. **Token Efficiency** - Minimize redundant characters and repeated keys
+2. **Human Readability** - Developers should be able to read and understand it easily
+3. **LLM Compatibility** - Structure that LLMs can parse and understand naturally
+
+### The "Aha !" Moment: Why It's So Much Better
+
+Let's see it in action with a real-world example. Imagine you have a list of users you want to send to your LLM.
+
+### Traditional JSON Approach
+
+Here's your data in standard JSON:
+
+```json
+{
+  "users": [
+    { "id": 1, "name": "Biswajit", "email": "biswajit@mail.com", "role": "admin", "active": true },
+    { "id": 2, "name": "Aman", "email": "aman@mail.com", "role": "user", "active": true },
+    { "id": 3, "name": "Rashmeet", "email": "rashmeet@mail.com", "role": "guest", "active": false },
+    { "id": 4, "name": "Rony", "email": "rony@mail.com", "role": "user", "active": true }
+  ]
+}
+```
+
+Now, let's count the token-wasting parts:
+
+- `{` and `}` brackets appear 9 times
+- `[` and `]` for the array (2 times)
+- The keys "id", "name", "email", "role", and "active" are **repeated 4 times each**
+- Commas and colons everywhere
+- **Total estimated tokens:** ~110 tokens
+
+This is fine for a few users. But what if you have 100 users? You're paying for the word "email" 100 times!
+
+### The TOON Approach
+
+Here's the same data in TOON:
+
+```text
+users[4]{id,name,email,role,active}:
+  1,Biswajit,biswajit@mail.com,admin,true
+  2,Aman,aman@mail.com,user,true
+  3,Rashmeet,rashmeet@mail.com,guest,false
+  4,Rony,rony@mail.com,user,true
+```
+
+Look at that transformation! Here's what changed:
+
+- Keys are declared **once** in the header: `users[4]{id,name,email,role,active}:`
+- The `[4]` tells the model to expect four items
+- Data follows in a clean, CSV-like format
+- All repeating keys, brackets, and most quotes are gone
+- **Total estimated tokens:** ~65 tokens
+
+**That's a 40% reduction** in token count for the exact same information!
+
+## The Big Wins: Why You Should Care
+
+This isn't just a clever formatting trick. Using TOON has several massive, practical benefits:
+
+### 1. Save Real Money
+
+Fewer tokens equal lower API costs. If you're running thousands of API calls a day, a 30-60% reduction in your data payload size is a massive win for your bottom line.
+
+With GPT-4, Claude, and other premium models charging per token, every optimization counts. TOON can literally **cut your data transmission costs in half**.
+
+### 2. Expand Your Context Window
+
+Every LLM has a "context window" (like 4K, 8K, 32K, or 128K tokens). This is its short-term memory.
+
+By shrinking your data with TOON, you can:
+
+- Fit **more data** into the same prompt
+- Include **more examples** for few-shot learning
+- Maintain **longer conversation histories**
+- Add **additional context** without hitting limits
+
+This directly leads to smarter, more context-aware responses.
+
+### 3. Potentially Better Accuracy
+
+This is a fascinating side-effect that early adopters have reported. Because the TOON format is so structured and clean, LLMs sometimes show **improved accuracy** when retrieving data from it.
+
+The format acts like a set of "guardrails," making it easier for the model to:
+
+- Parse structured data without confusion
+- Locate specific values quickly
+- Avoid getting distracted by punctuation
+- Process tabular data more reliably
+
+### 4. Faster Processing
+
+Fewer tokens don't just mean lower costs - they can also mean **faster response times**. LLMs process tokens sequentially, so sending less data can reduce latency.
+
+## When to Use TOON: The Perfect Scenarios
+
+TOON shines brightest in specific use cases. Here are the ideal scenarios:
+
+### Perfect For:
+
+**Tabular Data with Consistent Schema**
+
+```text
+products[3]{id,name,price,stock}:
+  101,Laptop,999.99,45
+  102,Mouse,29.99,234
+  103,Keyboard,79.99,87
+```
+
+**Database Query Results**
+
+```text
+orders[5]{order_id,customer,date,total,status}:
+  ORD001,John Doe,2025-11-01,1299.99,shipped
+  ORD002,Jane Smith,2025-11-01,45.00,pending
+  ORD003,Bob Johnson,2025-11-02,789.50,delivered
+  ORD004,Alice Brown,2025-11-02,234.00,processing
+  ORD005,Charlie Wilson,2025-11-03,567.25,shipped
+```
+
+**Analytics and Reports**
+
+```text
+monthly_sales[12]{month,revenue,units_sold,growth}:
+  Jan,125000,450,5.2
+  Feb,132000,478,5.6
+  Mar,145000,512,9.8
+  Apr,138000,489,-4.8
+  May,152000,537,10.1
+  Jun,168000,592,10.5
+  Jul,175000,618,4.2
+  Aug,182000,643,4.0
+  Sep,195000,687,7.1
+  Oct,203000,715,4.1
+  Nov,218000,768,7.4
+  Dec,245000,862,12.4
+```
+
+**User Lists and Directories**
+
+```text
+team_members[8]{id,name,department,level,years_exp}:
+  E001,Sarah Connor,Engineering,Senior,7
+  E002,John Matrix,Engineering,Lead,12
+  E003,Ellen Ripley,Security,Principal,15
+  M001,Dana Scully,Medical,Senior,9
+  M002,Clarice Starling,Medical,Mid,5
+  D001,Trinity Anderson,Design,Senior,8
+  D002,Neo Anderson,Design,Junior,2
+  P003,Rick Deckard,Product,Lead,10
+```
+
+### Not Ideal For:
+
+**Deeply Nested Structures**
+
+```json
+// Better to keep as JSON
+{
+  "user": {
+    "profile": {
+      "personal": {
+        "name": "John",
+        "contacts": {
+          "email": "john@example.com",
+          "phones": [...]
+        }
+      }
+    }
+  }
+}
+```
+
+**Irregular Data Structures**
+Where each object has different fields or optional properties.
+
+**Small Payloads**
+If you're only sending 2-3 objects, the overhead of converting isn't worth it.
+
+**Complex Relationships**
+Data with many references, circular dependencies, or complex object graphs.
+
+## The Catch: When Not to Use TOON
+
+Before you go and refactor your entire database, let's be clear: **TOON is a specialist**, not a general-purpose replacement for JSON.
+
+### TOON's Limitations:
+
+**It's for LLM Prompts Only**
+Its main job is to shuttle data into an LLM efficiently. You'll still use JSON for your API responses, your database, and your app's internal logic.
+
+**Best for Uniform Data**
+TOON shines brightest with arrays of objects that all have the same structure (like our user list above).
+
+**JSON is Better for "Messy" Data**
+If you have deeply nested, irregular, or complex data where every object is different, traditional JSON is probably still more reliable and might even be just as efficient.
+
+**Limited Ecosystem**
+TOON is relatively new, so tooling, IDE support, and third-party integrations are still developing.
+
+## Getting Started with TOON
+
+Ready to try it? The developer community has already created libraries for major languages:
+
+### Available Libraries:
+
+- **JavaScript/TypeScript:** `toon` on npm
+- **Python:** `python-toon` on PyPI
+- **Elixir:** `toon` on Hex
+- **Go:** Community contributions in progress
+- **Rust:** Community contributions in progress
+
+### Quick Start Example (Python)
+
+```python
+from toon import encode
+from openai import OpenAI
+
+  # Your regular Python data
+users_data = {
+    "users": [
+        {"id": 1, "name": "Alice", "role": "admin"},
+        {"id": 2, "name": "Bob", "role": "user"},
+        {"id": 3, "name": "Charlie", "role": "guest"}
+    ]
+}
+
+  # Convert to TOON
+toon_string = encode(users_data)
+
+  # Build your prompt
+prompt = f"""
+Analyze the following user data and tell me how many admins we have:
+
+{toon_string}
+
+Please provide a summary.
+"""
+
+  # Send to LLM
+client = OpenAI()
+response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[{"role": "user", "content": prompt}]
+)
+
+print(response.choices[0].message.content)
+```
+
+### Quick Start Example (JavaScript/TypeScript)
+
+```typescript
+import { encode } from 'toon';
+import Anthropic from '@anthropic-ai/sdk';
+
+// Your regular JavaScript object
+const salesData = {
+  sales: [
+    { month: 'Jan', revenue: 125000, units: 450 },
+    { month: 'Feb', revenue: 132000, units: 478 },
+    { month: 'Mar', revenue: 145000, units: 512 },
+  ],
+};
+
+// Convert to TOON
+const toonString = encode(salesData);
+
+// Build your prompt
+const prompt = `
+Analyze this sales data and identify trends:
+
+${toonString}
+
+What patterns do you see?
+`;
+
+// Send to Claude
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
+
+const message = await anthropic.messages.create({
+  model: 'claude-3-5-sonnet-20241022',
+  max_tokens: 1024,
+  messages: [{ role: 'user', content: prompt }],
+});
+
+console.log(message.content);
+```
+
+## Common Pitfalls and How to Avoid Them
+
+### Pitfall 1: Over-Optimizing Small Datasets
+
+```python
+  # Not worth it for tiny data
+small_data = {"users": [{"id": 1, "name": "Alice"}]}
+toon_output = encode(small_data)  # Overhead > savings
+
+  # Better: Just use JSON
+prompt = f"User data: {json.dumps(small_data)}"
+```
+
+### Pitfall 2: Losing Type Information
+
+```python
+  # Problem: Everything becomes a string
+data = {"values": [1, 2, 3]}  # Numbers
+toon_output = encode(data)  # "1,2,3" - now strings!
+
+  # Solution: Add type hints or document it
+prompt = f"""
+The following are numeric values (integers):
+{toon_output}
+"""
+```
+
+### Pitfall 3: Inconsistent Schemas
+
+```python
+  # This won't work well with TOON
+messy_data = {
+    "items": [
+        {"id": 1, "name": "A", "price": 10},
+        {"id": 2, "name": "B"},  # Missing price!
+        {"id": 3, "price": 30}   # Missing name!
+    ]
+}
+
+  # Ensure consistent schema or use null placeholders
+clean_data = {
+    "items": [
+        {"id": 1, "name": "A", "price": 10},
+        {"id": 2, "name": "B", "price": None},
+        {"id": 3, "name": None, "price": 30}
+    ]
+}
+```
+
+## The Future of TOON
+
+TOON is still evolving, and the community is actively working on:
+
+- **Enhanced type system** for better data validation
+- **Compression algorithms** specific to LLM tokenization
+- **IDE plugins** for syntax highlighting and validation
+- **Framework integrations** (LangChain, LlamaIndex, etc.)
+- **Standardization efforts** for broader adoption
+
+As LLMs become more expensive and context windows become more valuable, efficient data formats like TOON will become increasingly important.
+
+## Conclusion
+
+TOON isn't trying to replace JSON everywhere. It's a specialized tool designed for one job: **getting data into LLMs as efficiently as possible**.
+
+If you're:
+
+- Running thousands of LLM API calls daily
+- Working with large datasets in your prompts
+- Hitting context window limits
+- Looking to reduce AI infrastructure costs
+
+Then TOON deserves a serious look.
+
+The typical workflow is simple:
+
+1. Build your data as a normal object in your code
+2. Import the TOON library: `from toon import encode`
+3. Encode it: `toon_string = encode(my_data)`
+4. Inject it into your prompt
+5. Enjoy 30-60% token savings
+
+It's a simple, powerful tool for your AI toolbox. As we push the limits of what LLMs can do, efficiency tricks like TOON are what will separate a good-enough app from a truly great—and cost-effective—one.
+
+### Additional Resources
+
+- [TOON Official Documentation](https://github.com/johannschopplich/toon)
+- [Token Counting Tools](https://platform.openai.com/tokenizer)
+- [Prompt Engineering Best Practices](https://docs.anthropic.com/claude/docs)

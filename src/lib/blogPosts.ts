@@ -6,48 +6,46 @@ export type BlogPost = {
   date: string;
   description: string;
   icon: BlogPostIconName;
-  content: string;
 };
+
+const formatDate = (isoDate: string) =>
+  new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  }).format(new Date(isoDate));
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: "designing-resilient-apis",
-    title: "Designing resilient APIs in distributed systems",
-    date: "Feb 12, 2026",
+    slug: "toon-for-llm-tokenization",
+    title: "Cut Your LLM Token Bill in Half - How TOON Rewrites the Rules of JSON",
+    date: formatDate("2025-11-02"),
     description:
-      "Practical patterns for retries, idempotency, and failure isolation when your services run at scale.",
+      "Discover how TOON (Token-Oriented Object Notation) can reduce your LLM API costs by 30-60% through smarter data formatting designed specifically for AI applications.",
     icon: "terminal",
-    content:
-      "Reliable APIs start with explicit contracts and predictable error handling. This post covers idempotency keys, timeouts, retries with jitter, circuit breakers, and observability baselines that keep systems healthy under load.",
   },
   {
-    slug: "postgres-indexing-playbook",
-    title: "A practical Postgres indexing playbook",
-    date: "Jan 30, 2026",
+    slug: "how-big-tech-checks-username-availibility",
+    title: "How Big Tech Checks Username Availability in a Fraction of a Second",
+    date: formatDate("2025-08-10"),
     description:
-      "How to pick the right indexes, measure wins with explain plans, and avoid common query anti-patterns.",
+      "A deep technical yet approachable breakdown of how massive platforms check username availability instantly while ensuring accuracy at scale.",
     icon: "database",
-    content:
-      "Indexing is workload-driven. We walk through B-tree vs GIN/GiST, composite index ordering, partial indexes, and how to validate every choice with EXPLAIN ANALYZE before shipping to production.",
   },
   {
-    slug: "shipping-on-aws-with-confidence",
-    title: "Shipping on AWS with confidence",
-    date: "Jan 08, 2026",
+    slug: "encoding-encrypting-hashing",
+    title: "Encoding, Hashing, Encrypting: The Ultimate Guide to Securing Your Data",
+    date: formatDate("2025-08-07"),
     description:
-      "A compact deployment checklist for CI/CD, rollback safety, and runtime monitoring.",
+      "Understand the key differences between encoding, hashing, and encryption - including how they work, their use cases, and real-world examples.",
     icon: "cloud",
-    content:
-      "Shipping confidence comes from repeatability. This post outlines immutable builds, progressive rollouts, health probes, incident-ready dashboards, and release guardrails that reduce production risk.",
   },
   {
-    slug: "event-driven-systems-without-chaos",
-    title: "Event-driven systems without chaos",
-    date: "Dec 18, 2025",
+    slug: "smart-india-hackathon-journey",
+    title: "Winning Against the Odds: My Unforgettable Smart India Hackathon Journey",
+    date: formatDate("2024-11-26"),
     description:
-      "Structuring event contracts and consumers so asynchronous workflows stay observable and maintainable.",
+      "A thrilling journey through the Smart India Hackathon—intense challenges, last-minute changes, and an unexpected yet unforgettable win!",
     icon: "system",
-    content:
-      "Event-driven architecture scales teams and throughput, but only with clear schema ownership, dead-letter handling, consumer idempotency, and traceability across services. Here is a production-first approach.",
   },
 ];

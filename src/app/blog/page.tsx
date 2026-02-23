@@ -1,15 +1,19 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { blogPosts } from "@/lib/blogPosts";
 import { BlogPostIcon } from "@/components/BlogPostIcon";
+import { SubscribeModal } from "@/components/SubscribeModal";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function BlogPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
-    <div className="relative min-h-screen bg-[#FAFAFA] text-[#0A0A0A]">
+    <div className="relative min-h-screen bg-[#F5F2EE] text-[#0A0A0A]">
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-0 sm:px-8 sm:pt-0">
         <div className="grid grid-cols-1 gap-0 lg:grid-cols-[280px_1fr] lg:gap-0">
           <motion.div
@@ -33,7 +37,11 @@ export default function BlogPage() {
               .
             </p>
 
-            <button className="rounded bg-[#0A0A0A] px-4 py-2 text-[13px] font-medium text-[#FAFAFA] transition-colors duration-200 hover:bg-[#0A0A0A]/90">
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="rounded bg-[#0A0A0A] px-4 py-2 text-[13px] font-medium text-[#FAFAFA] transition-colors duration-200 hover:bg-[#0A0A0A]/90"
+            >
               Subscribe
             </button>
 
@@ -114,6 +122,7 @@ export default function BlogPage() {
           </div>
         </div>
       </div>
+      <SubscribeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }
