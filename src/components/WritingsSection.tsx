@@ -8,9 +8,9 @@ export function WritingsSection() {
   const posts = blogPosts.slice(0, 3);
 
   return (
-    <section id="blog" className="relative bg-[#111111] py-32 text-[#FAFAFA] sm:py-40">
+    <section id="blog" className="relative bg-[#111111] py-20 text-[#FAFAFA] sm:py-24">
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
-        <div className="relative mb-16 text-right sm:mb-20">
+        <div className="relative mb-12 text-right sm:mb-14">
           <motion.span
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -22,7 +22,7 @@ export function WritingsSection() {
           </motion.span>
 
           <div className="relative">
-            <p className="mb-4 font-mono text-xs uppercase tracking-widest text-[#FAFAFA]/40">
+            <p className="mb-3 font-mono text-xs uppercase tracking-widest text-[#FAFAFA]/40">
               Latest posts
             </p>
             <h2 className="text-[clamp(4rem,12vw,10rem)] font-bold leading-[0.85] tracking-[-0.04em]">
@@ -31,7 +31,7 @@ export function WritingsSection() {
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, index) => (
             <motion.div
               key={post.slug}
@@ -42,15 +42,17 @@ export function WritingsSection() {
             >
               <Link
                 href={`/blog/${post.slug}`}
-                className="group block border border-[#FAFAFA]/10 p-7 transition-colors duration-300 hover:border-[#FAFAFA]/30 hover:bg-[#FAFAFA]/[0.03]"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block h-full border border-[#FAFAFA]/10 p-5 transition-colors duration-300 hover:border-[#FAFAFA]/30 hover:bg-[#FAFAFA]/[0.03]"
               >
-                <p className="mb-3 font-mono text-xs uppercase tracking-widest text-[#FAFAFA]/40">
+                <p className="mb-2 font-mono text-[10px] uppercase tracking-widest text-[#FAFAFA]/40">
                   {post.date}
                 </p>
-                <h3 className="text-2xl leading-tight tracking-[-0.02em] text-[#FAFAFA] transition-colors duration-300 group-hover:text-[#FAFAFA]">
+                <h3 className="text-xl leading-tight tracking-[-0.015em] text-[#FAFAFA] transition-colors duration-300 group-hover:text-[#FAFAFA]">
                   {post.title}
                 </h3>
-                <p className="mt-3 max-w-3xl text-base leading-relaxed text-[#FAFAFA]/60">
+                <p className="mt-2 text-sm leading-relaxed text-[#FAFAFA]/60">
                   {post.description}
                 </p>
               </Link>
@@ -58,9 +60,11 @@ export function WritingsSection() {
           ))}
         </div>
 
-        <div className="mt-10 text-right">
+        <div className="mt-8 text-right">
           <Link
             href="/blog"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#FAFAFA]/70 transition-colors hover:text-[#FAFAFA]"
           >
             View all writings

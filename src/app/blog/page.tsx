@@ -14,7 +14,7 @@ export default function BlogPage() {
 
   return (
     <div className="relative min-h-screen bg-[#F5F2EE] text-[#0A0A0A]">
-      <div className="mx-auto max-w-7xl px-6 pb-24 pt-0 sm:px-8 sm:pt-0">
+      <div className="mx-auto max-w-7xl px-6 pb-0 pt-0 sm:px-8 sm:pt-0">
         <div className="grid grid-cols-1 gap-0 lg:grid-cols-[280px_1fr] lg:gap-0">
           <motion.div
             initial={{ opacity: 0, y: 8 }}
@@ -61,6 +61,8 @@ export default function BlogPage() {
                 >
                   <Link
                     href={`/blog/${post.slug}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="group block border-t border-[#0A0A0A]/8 transition-colors duration-300 hover:bg-[#0A0A0A]/[0.02]"
                   >
                     <div className="flex items-start gap-6 py-8 sm:gap-8 sm:py-10">

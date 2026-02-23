@@ -191,7 +191,9 @@ export function ExperienceSection() {
           className="mt-16 flex justify-center"
         >
           <a
-            href="/resume.pdf"
+            href="/Biswajit_Rath_Java_Developer_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group inline-flex items-center gap-3 border border-[#111111]/20 px-8 py-4 font-mono text-xs uppercase tracking-widest transition-all duration-300 hover:border-[#111111] hover:bg-[#111111] hover:text-[#FAFAFA]"
           >
             View full resume

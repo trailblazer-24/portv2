@@ -42,6 +42,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="mt-14 border-t border-[#0A0A0A]/10 pt-6">
           <Link
             href="/blog"
+            target="_blank"
+            rel="noopener noreferrer"
             className="font-mono text-xs uppercase tracking-widest text-[#0A0A0A]/65 transition-colors hover:text-[#0A0A0A]"
           >
             ← Back to writings

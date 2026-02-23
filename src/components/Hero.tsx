@@ -67,6 +67,8 @@ export function Hero({ isReady = true }: HeroProps) {
             </a>
             <a
               href="/blog"
+              target="_blank"
+              rel="noopener noreferrer"
               className="link-underline font-mono text-xs uppercase tracking-widest text-[#111111]/60 transition-colors hover:text-[#111111] dark:text-[#FAFAFA]/60 dark:hover:text-[#FAFAFA]"
             >
               Blog
@@ -168,15 +170,9 @@ export function Hero({ isReady = true }: HeroProps) {
               </li>
               <li>
                 <a
-                  href="#github"
-                  className="text-[#111111]/70 transition-colors hover:text-[#111111] dark:text-[#FAFAFA]/70 dark:hover:text-[#FAFAFA]"
-                >
-                  GitHub ↗
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#resume"
+                  href="/Biswajit_Rath_Java_Developer_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-[#111111]/70 transition-colors hover:text-[#111111] dark:text-[#FAFAFA]/70 dark:hover:text-[#FAFAFA]"
                 >
                   Resume ↗

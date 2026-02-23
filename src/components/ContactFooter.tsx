@@ -26,10 +26,6 @@ export function ContactFooter() {
 
   const socialLinks = [
     {
-      label: "GitHub",
-      href: "https://github.com/biswajitrath",
-    },
-    {
       label: "LinkedIn",
       href: "https://linkedin.com/in/biswajitrath",
     }
@@ -177,14 +173,18 @@ export function ContactFooter() {
 
             <div className="flex items-center gap-1 font-mono text-[10px] uppercase tracking-widest text-[#111111]/40">
               <a
-                href="#"
+                href="https://2025.biswajitrath.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="transition-colors hover:text-[#111111]"
               >
                 Archive &rsquo;25
               </a>
               <span>·</span>
               <a
-                href="#"
+                href="https://2024.biswajitrath.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="transition-colors hover:text-[#111111]"
               >
                 Archive &rsquo;24

@@ -35,6 +35,8 @@ export default function ComingSoonPage() {
 
             <Link
               href="/blog"
+              target="_blank"
+              rel="noopener noreferrer"
               className="font-mono text-xs uppercase tracking-widest text-[#111111]/60 transition-colors hover:text-[#111111]"
             >
               Visit writings
