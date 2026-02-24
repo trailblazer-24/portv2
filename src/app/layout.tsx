@@ -69,7 +69,9 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} ${syne.variable} font-sans antialiased overflow-x-hidden`}
       >
-        <LenisProvider>{children}</LenisProvider>
+        <LenisProvider>
+          <main>{children}</main>
+        </LenisProvider>
         <GoogleAnalyticsProvider />
       </body>
     </html>

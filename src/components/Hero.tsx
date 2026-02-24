@@ -122,8 +122,8 @@ export function Hero({ isReady = true }: HeroProps) {
             className={`mt-10 ${isLoaded ? "animate-fade-in-up" : "opacity-0"}`}
             style={{ animationDelay: "400ms" }}
           >
-            <a
-              href="#work"
+            <div
+              aria-hidden="true"
               className="group inline-flex items-center gap-3 font-mono text-sm uppercase tracking-widest"
             >
               <span
@@ -132,7 +132,7 @@ export function Hero({ isReady = true }: HeroProps) {
                 }`}
                 style={{ animationDelay: "600ms" }}
               />
-            </a>
+            </div>
           </div>
         </div>
 
