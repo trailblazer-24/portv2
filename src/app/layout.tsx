@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Syne } from "next/font/google";
 import "./globals.css";
 import { LenisProvider } from "@/providers/LenisProvider";
+import { GoogleAnalyticsProvider } from "@/providers/GoogleAnalyticsProvider";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -39,6 +40,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light" style={{ colorScheme: "light" }}>
+      <head>
+        <GoogleAnalyticsProvider />
+      </head>
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} ${syne.variable} font-sans antialiased overflow-x-hidden`}
       >
