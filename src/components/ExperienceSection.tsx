@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 
 type Experience = {
   period: string;
@@ -61,77 +60,81 @@ export function ExperienceSection() {
         {/* Section header - LEFT aligned */}
         <div className="relative mb-20 sm:mb-32">
           {/* Faded number */}
-          <motion.span
-            initial={{ opacity: 0, x: -50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute -left-4 -top-8 font-mono text-[8rem] font-bold leading-none text-[#111111]/[0.03] sm:-left-8 sm:-top-16 sm:text-[12rem]"
+          <span
+            className={`absolute -left-4 -top-8 font-mono text-[8rem] font-bold leading-none text-[#111111]/[0.03] transition-all duration-700 sm:-left-8 sm:-top-16 sm:text-[12rem] ${
+              isVisible ? "translate-x-0 opacity-100" : "-translate-x-12 opacity-0"
+            }`}
           >
             05
-          </motion.span>
+          </span>
 
           {/* Content */}
           <div className="relative">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-4 font-mono text-xs uppercase tracking-widest text-[#111111]/40"
+            <p
+              className={`mb-4 font-mono text-xs uppercase tracking-widest text-[#111111]/40 transition-all duration-700 ${
+                isVisible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+              }`}
+              style={{ transitionDelay: "100ms" }}
             >
               Career journey
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-[clamp(4rem,12vw,10rem)] font-bold leading-[0.85] tracking-[-0.04em]"
+            </p>
+            <h2
+              className={`text-[clamp(4rem,12vw,10rem)] font-bold leading-[0.85] tracking-[-0.04em] transition-all duration-700 ${
+                isVisible ? "translate-y-0 opacity-100" : "translate-y-7 opacity-0"
+              }`}
+              style={{ transitionDelay: "200ms" }}
             >
               Experience
-            </motion.h2>
+            </h2>
           </div>
         </div>
 
         {/* Experience items */}
         <div className="space-y-0">
           {EXPERIENCES.map((exp, i) => (
-            <motion.div
+            <div
               key={exp.period}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className="group relative border-t border-[#111111]/10 py-8 sm:py-12"
+              className={`group relative border-t border-[#111111]/10 py-8 transition-all duration-700 sm:py-12 ${
+                isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+              }`}
+              style={{ transitionDelay: `${300 + i * 100}ms` }}
             >
               {/* Hover background */}
-              <motion.div
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: hoveredIndex === i ? 1 : 0 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              <div
                 className="absolute inset-0 origin-top bg-[#111111]/[0.02]"
+                style={{
+                  transform: hoveredIndex === i ? "scaleY(1)" : "scaleY(0)",
+                  transition: "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
               />
 
               <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-12 sm:gap-8">
                 {/* Period */}
                 <div className="sm:col-span-3">
-                  <motion.span
-                    animate={{ x: hoveredIndex === i ? 4 : 0 }}
-                    transition={{ duration: 0.3 }}
+                  <span
                     className="font-mono text-xs uppercase tracking-widest text-[#111111]/40"
+                    style={{
+                      transform: hoveredIndex === i ? "translateX(4px)" : "translateX(0)",
+                      transition: "transform 0.3s ease",
+                    }}
                   >
                     {exp.period}
-                  </motion.span>
+                  </span>
                 </div>
 
                 {/* Content */}
                 <div className="sm:col-span-6">
-                  <motion.h3
-                    animate={{ x: hoveredIndex === i ? 8 : 0 }}
-                    transition={{ duration: 0.3 }}
+                  <h3
                     className="text-xl font-semibold tracking-tight sm:text-2xl"
+                    style={{
+                      transform: hoveredIndex === i ? "translateX(8px)" : "translateX(0)",
+                      transition: "transform 0.3s ease",
+                    }}
                   >
                     {exp.role}
-                  </motion.h3>
+                  </h3>
                   <p className="mt-1 text-sm text-[#111111]/60">{exp.company}</p>
                   <p className="mt-3 text-sm leading-relaxed text-[#111111]/60">
                     {exp.description}
@@ -140,11 +143,12 @@ export function ExperienceSection() {
 
                 {/* Technologies */}
                 <div className="sm:col-span-3">
-                  <motion.div
-                    initial={{ opacity: 0.4 }}
-                    animate={{ opacity: hoveredIndex === i ? 1 : 0.4 }}
-                    transition={{ duration: 0.3 }}
+                  <div
                     className="flex flex-wrap gap-2 sm:justify-end"
+                    style={{
+                      opacity: hoveredIndex === i ? 1 : 0.4,
+                      transition: "opacity 0.3s ease",
+                    }}
                   >
                     {exp.technologies.map((tech) => (
                       <span
@@ -154,7 +158,7 @@ export function ExperienceSection() {
                         {tech}
                       </span>
                     ))}
-                  </motion.div>
+                  </div>
                 </div>
               </div>
 
@@ -179,16 +183,16 @@ export function ExperienceSection() {
                   <path d="M7 17L17 7M17 7H7M17 7V17" />
                 </svg>
               </motion.div> */}
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Resume link */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          className="mt-16 flex justify-center"
+        <div
+          className={`mt-16 flex justify-center transition-all duration-700 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+          }`}
+          style={{ transitionDelay: "700ms" }}
         >
           <a
             href="/Biswajit_Rath_Java_Developer_Resume.pdf"
@@ -197,15 +201,11 @@ export function ExperienceSection() {
             className="group inline-flex items-center gap-3 border border-[#111111]/20 px-8 py-4 font-mono text-xs uppercase tracking-widest transition-all duration-300 hover:border-[#111111] hover:bg-[#111111] hover:text-[#FAFAFA]"
           >
             View full resume
-            <motion.span
-              initial={{ x: 0 }}
-              whileHover={{ x: 4 }}
-              className="transition-transform"
-            >
+            <span className="transition-transform group-hover:translate-x-1">
               →
-            </motion.span>
+            </span>
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 
 type Step = {
   number: string;
@@ -67,86 +66,87 @@ export function ProcessSection() {
         {/* Section header - RIGHT aligned */}
         <div className="relative mb-20 text-right sm:mb-32">
           {/* Faded number */}
-          <motion.span
-            initial={{ opacity: 0, x: 50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute -right-4 -top-8 font-mono text-[8rem] font-bold leading-none text-[#FAFAFA]/[0.03] sm:-right-8 sm:-top-16 sm:text-[12rem]"
+          <span
+            className={`absolute -right-4 -top-8 font-mono text-[8rem] font-bold leading-none text-[#FAFAFA]/[0.03] transition-all duration-700 sm:-right-8 sm:-top-16 sm:text-[12rem] ${
+              isVisible ? "translate-x-0 opacity-100" : "translate-x-12 opacity-0"
+            }`}
           >
             04
-          </motion.span>
+          </span>
 
           {/* Content */}
           <div className="relative">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-4 font-mono text-xs uppercase tracking-widest text-[#FAFAFA]/40"
+            <p
+              className={`mb-4 font-mono text-xs uppercase tracking-widest text-[#FAFAFA]/40 transition-all duration-700 ${
+                isVisible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+              }`}
+              style={{ transitionDelay: "100ms" }}
             >
               How I work
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-[clamp(4rem,12vw,10rem)] font-bold leading-[0.85] tracking-[-0.04em]"
+            </p>
+            <h2
+              className={`text-[clamp(4rem,12vw,10rem)] font-bold leading-[0.85] tracking-[-0.04em] transition-all duration-700 ${
+                isVisible ? "translate-y-0 opacity-100" : "translate-y-7 opacity-0"
+              }`}
+              style={{ transitionDelay: "200ms" }}
             >
               Process
-            </motion.h2>
+            </h2>
           </div>
         </div>
 
         {/* Process steps - horizontal timeline */}
         <div className="relative">
           {/* Connecting line */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={isVisible ? { scaleX: 1 } : {}}
-            transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          <div
             className="absolute left-0 top-[28px] hidden h-px w-full origin-left bg-[#FAFAFA]/20 lg:block"
+            style={{
+              transform: isVisible ? "scaleX(1)" : "scaleX(0)",
+              transition: "transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s",
+            }}
           />
 
           <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
             {STEPS.map((step, i) => (
-              <motion.div
+              <div
                 key={step.number}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.4 + i * 0.15 }}
                 onMouseEnter={() => setHoveredIndex(i)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className="group relative"
+                className={`group relative transition-all duration-700 ${
+                  isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+                }`}
+                style={{ transitionDelay: `${400 + i * 150}ms` }}
               >
                 {/* Step indicator */}
-                <motion.div
-                  animate={{
-                    scale: hoveredIndex === i ? 1.2 : 1,
-                    backgroundColor:
-                      hoveredIndex === i ? "#FAFAFA" : "#111111",
-                  }}
-                  transition={{ duration: 0.3 }}
+                <div
                   className="relative z-20 mb-6 flex h-14 w-14 items-center justify-center border border-[#FAFAFA]/30"
+                  style={{
+                    transform: hoveredIndex === i ? "scale(1.2)" : "scale(1)",
+                    backgroundColor: hoveredIndex === i ? "#FAFAFA" : "#111111",
+                    transition: "transform 0.3s ease, background-color 0.3s ease",
+                  }}
                 >
-                  <motion.span
-                    animate={{
-                      color: hoveredIndex === i ? "#111111" : "#FAFAFA",
-                    }}
-                    transition={{ duration: 0.3 }}
+                  <span
                     className="font-mono text-sm"
+                    style={{
+                      color: hoveredIndex === i ? "#111111" : "#FAFAFA",
+                      transition: "color 0.3s ease",
+                    }}
                   >
                     {step.number}
-                  </motion.span>
-                </motion.div>
+                  </span>
+                </div>
 
                 {/* Title */}
-                <motion.h3
-                  animate={{ x: hoveredIndex === i ? 4 : 0 }}
-                  transition={{ duration: 0.3 }}
+                <h3
                   className="mb-3 text-xl font-semibold tracking-tight"
+                  style={{
+                    transform: hoveredIndex === i ? "translateX(4px)" : "translateX(0)",
+                    transition: "transform 0.3s ease",
+                  }}
                 >
                   {step.title}
-                </motion.h3>
+                </h3>
 
                 {/* Description */}
                 <p className="text-sm leading-relaxed text-[#FAFAFA]/60">
@@ -154,13 +154,14 @@ export function ProcessSection() {
                 </p>
 
                 {/* Hover line */}
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: hoveredIndex === i ? "40px" : 0 }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                <div
                   className="mt-4 h-px bg-[#FAFAFA]"
+                  style={{
+                    width: hoveredIndex === i ? "40px" : 0,
+                    transition: "width 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                  }}
                 />
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

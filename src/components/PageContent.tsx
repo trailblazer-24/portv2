@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { LoadingScreen } from "@/components/LoadingScreen";
 import { Hero } from "@/components/Hero";
 import { ProjectsSection } from "@/components/ProjectsSection";
@@ -42,11 +41,12 @@ export function PageContent() {
         <LoadingScreen onComplete={handleLoadingComplete} />
       )}
 
-      <motion.div
-        initial={{ x: "100%" }}
-        animate={{ x: shouldShowLoading && isLoading ? "100%" : "0%" }}
-        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+      <div
         className="relative"
+        style={{
+          transform: shouldShowLoading && isLoading ? "translateX(100%)" : "translateX(0)",
+          transition: "transform 0.8s cubic-bezier(0.76, 0, 0.24, 1)",
+        }}
       >
         <div id="top" />
         <Hero isReady={showContent} />
@@ -57,7 +57,7 @@ export function PageContent() {
         <ExperienceSection />
         <WritingsSection />
         <ContactFooter />
-      </motion.div>
+      </div>
     </>
   );
 }

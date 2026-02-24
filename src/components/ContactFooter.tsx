@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 
 export function ContactFooter() {
   const [isVisible, setIsVisible] = useState(false);
@@ -42,69 +41,68 @@ export function ContactFooter() {
       <div className="mx-auto max-w-6xl px-6 pt-20 sm:px-8 sm:pt-28">
         <div className="relative border-[#111111]/10 pt-16 sm:pt-20">
           {/* Faded number */}
-          <motion.span
-            initial={{ opacity: 0, x: -50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute -left-4 -top-8 font-mono text-[8rem] font-bold leading-none text-[#111111]/[0.03] sm:-left-8 sm:-top-16 sm:text-[12rem]"
+          <span
+            className={`absolute -left-4 -top-8 font-mono text-[8rem] font-bold leading-none text-[#111111]/[0.03] transition-all duration-700 sm:-left-8 sm:-top-16 sm:text-[12rem] ${
+              isVisible ? "translate-x-0 opacity-100" : "-translate-x-12 opacity-0"
+            }`}
           >
             07
-          </motion.span>
+          </span>
 
           <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
             {/* Left - headline & CTA */}
             <div className="lg:col-span-7">
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="mb-4 font-mono text-xs uppercase tracking-widest text-[#111111]/40"
+              <p
+                className={`mb-4 font-mono text-xs uppercase tracking-widest text-[#111111]/40 transition-all duration-700 ${
+                  isVisible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+                }`}
+                style={{ transitionDelay: "100ms" }}
               >
                 Start a conversation
-              </motion.p>
+              </p>
 
-              <motion.h2
-                initial={{ opacity: 0, y: 30 }}
-                animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-[clamp(3rem,10vw,7rem)] font-bold leading-[0.85] tracking-[-0.04em]"
+              <h2
+                className={`text-[clamp(3rem,10vw,7rem)] font-bold leading-[0.85] tracking-[-0.04em] transition-all duration-700 ${
+                  isVisible ? "translate-y-0 opacity-100" : "translate-y-7 opacity-0"
+                }`}
+                style={{ transitionDelay: "200ms" }}
               >
                 Let&apos;s
                 <br />
                 Connect
-              </motion.h2>
+              </h2>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="mt-8 max-w-md text-lg leading-relaxed text-[#111111]/60"
+              <p
+                className={`mt-8 max-w-md text-lg leading-relaxed text-[#111111]/60 transition-all duration-700 ${
+                  isVisible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+                }`}
+                style={{ transitionDelay: "300ms" }}
               >
                 Whether you&apos;re validating an idea or scaling an existing
                 product, I help teams turn complexity into reliable,
                 production-ready systems.
-              </motion.p>
+              </p>
 
-              <motion.a
-                initial={{ opacity: 0, y: 20 }}
-                animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.4 }}
+              <a
                 href="mailto:hello@biswajitrath.com"
-                className="group mt-10 inline-flex items-center gap-4 border border-[#111111] px-8 py-4 font-mono text-sm uppercase tracking-widest transition-all duration-300 hover:bg-[#111111] hover:text-[#FAFAFA]"
+                className={`group mt-10 inline-flex items-center gap-4 border border-[#111111] px-8 py-4 font-mono text-sm uppercase tracking-widest transition-all duration-300 hover:bg-[#111111] hover:text-[#FAFAFA] ${
+                  isVisible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+                }`}
+                style={{ transitionDelay: "400ms" }}
               >
                 Get in touch
                 <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">
                   →
                 </span>
-              </motion.a>
+              </a>
             </div>
 
             {/* Right - contact details */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="flex flex-col justify-end lg:col-span-5"
+            <div
+              className={`flex flex-col justify-end transition-all duration-700 lg:col-span-5 ${
+                isVisible ? "translate-y-0 opacity-100" : "translate-y-7 opacity-0"
+              }`}
+              style={{ transitionDelay: "500ms" }}
             >
               <div className="space-y-8">
                 {/* Email */}
@@ -151,7 +149,7 @@ export function ContactFooter() {
                   <p className="mt-2 text-sm">India</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

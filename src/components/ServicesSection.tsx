@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 
 type Service = {
   number: string;
@@ -79,94 +78,96 @@ export function ServicesSection() {
         {/* Section header - LEFT aligned */}
         <div className="relative mb-20 sm:mb-32">
           {/* Faded number */}
-          <motion.span
-            initial={{ opacity: 0, x: -50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute -left-4 -top-8 font-mono text-[8rem] font-bold leading-none text-[#111111]/[0.03] dark:text-[#FAFAFA]/[0.03] sm:-left-8 sm:-top-16 sm:text-[12rem]"
+          <span
+            className={`absolute -left-4 -top-8 font-mono text-[8rem] font-bold leading-none text-[#111111]/[0.03] transition-all duration-700 dark:text-[#FAFAFA]/[0.03] sm:-left-8 sm:-top-16 sm:text-[12rem] ${
+              isVisible ? "translate-x-0 opacity-100" : "-translate-x-12 opacity-0"
+            }`}
           >
             03
-          </motion.span>
+          </span>
 
           {/* Content */}
           <div className="relative">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-4 font-mono text-xs uppercase tracking-widest text-[#111111]/40 dark:text-[#FAFAFA]/40"
+            <p
+              className={`mb-4 font-mono text-xs uppercase tracking-widest text-[#111111]/40 transition-all duration-700 dark:text-[#FAFAFA]/40 ${
+                isVisible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+              }`}
+              style={{ transitionDelay: "100ms" }}
             >
               What I offer
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-[clamp(4rem,12vw,10rem)] font-bold leading-[0.85] tracking-[-0.04em]"
+            </p>
+            <h2
+              className={`text-[clamp(4rem,12vw,10rem)] font-bold leading-[0.85] tracking-[-0.04em] transition-all duration-700 ${
+                isVisible ? "translate-y-0 opacity-100" : "translate-y-7 opacity-0"
+              }`}
+              style={{ transitionDelay: "200ms" }}
             >
               Services
-            </motion.h2>
+            </h2>
           </div>
         </div>
 
         {/* Services grid */}
         <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((service, i) => (
-            <motion.div
+            <div
               key={service.number}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className="group relative cursor-pointer"
+              className={`group relative cursor-pointer transition-all duration-700 ${
+                isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+              }`}
+              style={{ transitionDelay: `${300 + i * 100}ms` }}
             >
               {/* Hover indicator */}
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: hoveredIndex === i ? "100%" : 0 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              <div
                 className="absolute -bottom-4 left-0 h-px bg-[#111111] dark:bg-[#FAFAFA]"
+                style={{
+                  width: hoveredIndex === i ? "100%" : 0,
+                  transition: "width 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
               />
 
               {/* Number */}
-              <motion.span
-                animate={{
-                  x: hoveredIndex === i ? 4 : 0,
+              <span
+                className="font-mono text-xs dark:text-[#FAFAFA]/20"
+                style={{
+                  transform: hoveredIndex === i ? "translateX(4px)" : "translateX(0)",
                   color:
                     hoveredIndex === i
                       ? "rgba(17, 17, 17, 0.8)"
                       : "rgba(17, 17, 17, 0.2)",
+                  transition: "transform 0.3s ease, color 0.3s ease",
                 }}
-                transition={{ duration: 0.3 }}
-                className="font-mono text-xs dark:text-[#FAFAFA]/20"
               >
                 {service.number}
-              </motion.span>
+              </span>
 
               {/* Title */}
-              <motion.h3
-                animate={{ x: hoveredIndex === i ? 8 : 0 }}
-                transition={{ duration: 0.3 }}
+              <h3
                 className="mt-3 text-lg font-semibold tracking-tight sm:text-xl"
+                style={{
+                  transform: hoveredIndex === i ? "translateX(8px)" : "translateX(0)",
+                  transition: "transform 0.3s ease",
+                }}
               >
                 {service.title}
-              </motion.h3>
+              </h3>
 
               {/* Description */}
               <p className="mt-2 text-sm leading-relaxed text-[#111111]/60 dark:text-[#FAFAFA]/60">
                 {service.description}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-20 text-center"
+        <div
+          className={`mt-20 text-center transition-all duration-700 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+          }`}
+          style={{ transitionDelay: "800ms" }}
         >
           <a
             href="mailto:hello@biswajitrath.dev"
@@ -176,7 +177,7 @@ export function ServicesSection() {
             Discuss your project
             <span className="h-px w-8 bg-[#111111] transition-all duration-300 group-hover:w-12 dark:bg-[#FAFAFA]" />
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
