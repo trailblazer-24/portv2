@@ -169,7 +169,7 @@ export function ContactFooter() {
               Back to top ↑
             </a>
 
-            <div className="flex items-center gap-1 font-mono text-[10px] uppercase tracking-widest text-[#111111]/40">
+            <div className="hidden items-center gap-1 font-mono text-[10px] uppercase tracking-widest text-[#111111]/40 sm:flex">
               <a
                 href="https://2025.biswajitrath.com/"
                 target="_blank"

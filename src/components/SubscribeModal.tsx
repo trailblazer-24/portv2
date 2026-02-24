@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type SubscribeModalProps = {
   isOpen: boolean;
@@ -13,6 +13,7 @@ export function SubscribeModal({ isOpen, onClose }: SubscribeModalProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const emailInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!isOpen) {
@@ -27,6 +28,7 @@ export function SubscribeModal({ isOpen, onClose }: SubscribeModalProps) {
 
     document.addEventListener("keydown", handleKeyDown);
     document.body.style.overflow = "hidden";
+    emailInputRef.current?.focus();
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
@@ -72,15 +74,30 @@ export function SubscribeModal({ isOpen, onClose }: SubscribeModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0A0A0A]/60 px-6">
-      <div className="w-full max-w-md rounded-2xl bg-[#FAFAFA] p-6 shadow-2xl">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#111111]/40 px-6 backdrop-blur-[2px]"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) {
+          handleClose();
+        }
+      }}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="subscribe-modal-title"
+        className="w-full max-w-md rounded-2xl border border-[#111111]/10 bg-[#F5F2EE] p-6 shadow-xl"
+      >
         <div className="flex items-start justify-between">
           <div>
             <p className="font-mono text-[11px] uppercase tracking-widest text-[#0A0A0A]/50">
               Writings
             </p>
-            <h2 className="mt-2 text-2xl leading-tight tracking-[-0.02em] text-[#0A0A0A]">
-              Subscribe for updates
+            <h2
+              id="subscribe-modal-title"
+              className="mt-2 text-2xl leading-tight tracking-[-0.02em] text-[#0A0A0A]"
+            >
+              Get engineering deep-dives in your inbox
             </h2>
           </div>
           <button
@@ -88,7 +105,7 @@ export function SubscribeModal({ isOpen, onClose }: SubscribeModalProps) {
             onClick={handleClose}
             className="rounded-full border border-[#0A0A0A]/10 px-3 py-1 text-xs text-[#0A0A0A]/70 transition-colors hover:text-[#0A0A0A]"
           >
-            Close
+            X
           </button>
         </div>
 
@@ -106,19 +123,17 @@ export function SubscribeModal({ isOpen, onClose }: SubscribeModalProps) {
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-            <label className="block text-xs uppercase tracking-widest text-[#0A0A0A]/50">
-              Email
+          <form onSubmit={handleSubmit} className="mt-2 space-y-4">
               <input
+                ref={emailInputRef}
                 type="email"
                 name="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 required
-                placeholder="you@domain.com"
+                placeholder="Enter your email"
                 className="mt-2 w-full rounded-lg border border-[#0A0A0A]/15 bg-white px-3 py-2 text-sm text-[#0A0A0A] outline-none transition-colors focus:border-[#0A0A0A]/40"
               />
-            </label>
             {status === "error" && (
               <p className="text-sm text-[#B42318]">{errorMessage}</p>
             )}
