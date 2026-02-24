@@ -22,7 +22,12 @@ const syne = Syne({
   display: "swap",
 });
 
+const metadataBase = new URL(
+  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+);
+
 export const metadata: Metadata = {
+  metadataBase,
   title: "Biswajit Rath '2026",
   description: "Building systems that scale. Backend architecture, API design, and production-ready systems.",
 };

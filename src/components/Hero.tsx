@@ -162,7 +162,9 @@ export function Hero({ isReady = true }: HeroProps) {
             <ul className="space-y-2 font-mono text-xs">
               <li>
                 <a
-                  href="#linkedin"
+                  href="https://www.linkedin.com/in/biswajitrath"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-[#111111]/70 transition-colors hover:text-[#111111] dark:text-[#FAFAFA]/70 dark:hover:text-[#FAFAFA]"
                 >
                   LinkedIn ↗
