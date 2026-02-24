@@ -29,14 +29,28 @@ export async function POST(request: Request) {
     await resend.emails.send({
       from,
       to: email,
-      subject: "Welcome to Beyond your API",
+      subject: "Welcome to Beyond Your API",
       html: `
-        <div style="font-family: Arial, sans-serif; line-height: 1.6;">
-          <h2 style="margin: 0 0 12px;">Welcome aboard</h2>
-          <p>Thanks for subscribing. I will send new posts and updates here.</p>
-          <p style="margin: 24px 0 0; color: #555; font-size: 13px;">Biswajit Rath</p>
-        </div>
-      `,
+  <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #111; max-width: 520px; margin: 0 auto; padding: 24px;">
+    
+    <h2 style="margin: 0 0 16px; font-weight: 600;">
+      Welcome.
+    </h2>
+    
+    <p style="margin: 0 0 16px;">
+      Thanks for subscribing to <strong>Beyond Your API</strong>.
+    </p>
+    
+    <p style="margin: 0 0 16px;">
+      I’ll send you new deep-dives on systems, architecture, and AI engineering when they’re published.
+    </p>
+    
+    <p style="margin: 32px 0 0; font-size: 14px; color: #555;">
+      — Biswajit Rath
+    </p>
+    
+  </div>
+`,
     });
   } catch (error) {
     return NextResponse.json(
