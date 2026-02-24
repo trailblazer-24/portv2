@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { LoadingScreen } from "@/components/LoadingScreen";
 import { Hero } from "@/components/Hero";
@@ -15,6 +15,20 @@ import { ContactFooter } from "@/components/ContactFooter";
 export function PageContent() {
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
+  const [shouldShowLoading, setShouldShowLoading] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+
+    if (mediaQuery.matches) {
+      setShouldShowLoading(true);
+      return;
+    }
+
+    setShouldShowLoading(false);
+    setIsLoading(false);
+    setShowContent(true);
+  }, []);
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
@@ -24,11 +38,13 @@ export function PageContent() {
 
   return (
     <>
-      {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
+      {shouldShowLoading && isLoading && (
+        <LoadingScreen onComplete={handleLoadingComplete} />
+      )}
 
       <motion.div
         initial={{ x: "100%" }}
-        animate={{ x: isLoading ? "100%" : "0%" }}
+        animate={{ x: shouldShowLoading && isLoading ? "100%" : "0%" }}
         transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         className="relative"
       >

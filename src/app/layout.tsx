@@ -66,13 +66,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light" style={{ colorScheme: "light" }}>
-      <head>
-        <GoogleAnalyticsProvider />
-      </head>
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} ${syne.variable} font-sans antialiased overflow-x-hidden`}
       >
         <LenisProvider>{children}</LenisProvider>
+        <GoogleAnalyticsProvider />
       </body>
     </html>
   );
