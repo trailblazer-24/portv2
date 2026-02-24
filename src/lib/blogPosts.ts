@@ -4,6 +4,7 @@ export type BlogPost = {
   slug: string;
   title: string;
   date: string;
+  isoDate: string;
   description: string;
   icon: BlogPostIconName;
 };
@@ -20,6 +21,7 @@ export const blogPosts: BlogPost[] = [
     slug: "toon-for-llm-tokenization",
     title: "Cut Your LLM Token Bill in Half - How TOON Rewrites the Rules of JSON",
     date: formatDate("2025-11-02"),
+    isoDate: "2025-11-02",
     description:
       "Discover how TOON (Token-Oriented Object Notation) can reduce your LLM API costs by 30-60% through smarter data formatting designed specifically for AI applications.",
     icon: "terminal",
@@ -28,6 +30,7 @@ export const blogPosts: BlogPost[] = [
     slug: "how-big-tech-checks-username-availibility",
     title: "How Big Tech Checks Username Availability in a Fraction of a Second",
     date: formatDate("2025-08-10"),
+    isoDate: "2025-08-10",
     description:
       "A deep technical yet approachable breakdown of how massive platforms check username availability instantly while ensuring accuracy at scale.",
     icon: "database",
@@ -36,6 +39,7 @@ export const blogPosts: BlogPost[] = [
     slug: "encoding-encrypting-hashing",
     title: "Encoding, Hashing, Encrypting: The Ultimate Guide to Securing Your Data",
     date: formatDate("2025-08-07"),
+    isoDate: "2025-08-07",
     description:
       "Understand the key differences between encoding, hashing, and encryption - including how they work, their use cases, and real-world examples.",
     icon: "cloud",
@@ -44,6 +48,7 @@ export const blogPosts: BlogPost[] = [
     slug: "smart-india-hackathon-journey",
     title: "Winning Against the Odds: My Unforgettable Smart India Hackathon Journey",
     date: formatDate("2024-11-26"),
+    isoDate: "2024-11-26",
     description:
       "A thrilling journey through the Smart India Hackathon—intense challenges, last-minute changes, and an unexpected yet unforgettable win!",
     icon: "system",

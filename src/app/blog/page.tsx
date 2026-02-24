@@ -46,6 +46,36 @@ export default function BlogPage() {
             </button>
 
             <div className="mt-20 hidden flex-col gap-4 text-[12px] text-[#0A0A0A]/35 lg:flex">
+              <Link
+                href="/rss.xml"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 transition-colors duration-200 hover:text-[#0A0A0A]"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <circle cx="6" cy="18" r="2" fill="currentColor" />
+                  <path
+                    d="M4 10C9.523 10 14 14.477 14 20"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M4 4C12.837 4 20 11.163 20 20"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                RSS Feed
+              </Link>
               <span>© 2026 Biswajit Rath</span>
             </div>
           </motion.div>
@@ -118,6 +148,36 @@ export default function BlogPage() {
             >
               <Link href="/" className="transition-colors duration-200 hover:text-[#0A0A0A]">
                 ← Back to home
+              </Link>
+              <Link
+                href="/rss.xml"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 transition-colors duration-200 hover:text-[#0A0A0A]"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <circle cx="6" cy="18" r="2" fill="currentColor" />
+                  <path
+                    d="M4 10C9.523 10 14 14.477 14 20"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M4 4C12.837 4 20 11.163 20 20"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                RSS Feed
               </Link>
               <span>© 2021 – 2026</span>
             </motion.div>

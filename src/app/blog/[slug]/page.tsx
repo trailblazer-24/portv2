@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import { blogPosts } from "@/lib/blogPosts";
 import { getBlogPostHtml } from "@/lib/blogContent";
 import { BlogPostContent } from "@/components/BlogPostContent";
+import type { Metadata } from "next";
+
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.biswajitrath.com").replace(/\/+$/, "");
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -10,6 +13,37 @@ type BlogPostPageProps = {
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: BlogPostPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = blogPosts.find((item) => item.slug === slug);
+
+  if (!post) {
+    return {
+      title: "Post Not Found",
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      publishedTime: post.isoDate,
+      authors: ["Biswajit Rath"],
+      url: `https://www.biswajitrath.com/blog/${slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+    },
+  };
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
@@ -26,8 +60,37 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  const blogPostingJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.isoDate,
+    dateModified: post.isoDate,
+    author: {
+      "@type": "Person",
+      name: "Biswajit Rath",
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Biswajit Rath",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${siteUrl}/blog/${post.slug}`,
+    },
+    url: `${siteUrl}/blog/${post.slug}`,
+    image: [`${siteUrl}/blog/${post.slug}/opengraph-image`],
+  };
+
   return (
     <main className="min-h-screen bg-[#F5F2EE] text-[#0A0A0A]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(blogPostingJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <article className="mx-auto max-w-3xl px-6 py-20 sm:px-8 sm:py-24">
         <p className="mb-4 font-mono text-xs uppercase tracking-widest text-[#0A0A0A]/45">
           {post.date}
