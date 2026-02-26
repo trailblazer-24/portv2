@@ -15,6 +15,7 @@ export function PageContent() {
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
   const [shouldShowLoading, setShouldShowLoading] = useState<boolean | null>(null);
+  const isContentSliding = shouldShowLoading && isLoading;
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 768px)");
@@ -44,8 +45,10 @@ export function PageContent() {
       <div
         className="relative"
         style={{
-          transform: shouldShowLoading && isLoading ? "translateX(100%)" : "translateX(0)",
-          transition: "transform 0.8s cubic-bezier(0.76, 0, 0.24, 1)",
+          transform: isContentSliding ? "translateX(100%)" : undefined,
+          transition: isContentSliding
+            ? "transform 0.8s cubic-bezier(0.76, 0, 0.24, 1)"
+            : undefined,
         }}
       >
         <div id="top" />
