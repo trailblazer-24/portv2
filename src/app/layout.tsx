@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono, Syne } from "next/font/google";
 import "./globals.css";
 import { LenisProvider } from "@/providers/LenisProvider";
 import { GoogleAnalyticsProvider } from "@/providers/GoogleAnalyticsProvider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -73,6 +74,7 @@ export default function RootLayout({
           <main>{children}</main>
         </LenisProvider>
         <GoogleAnalyticsProvider />
+        <SpeedInsights />
       </body>
     </html>
   );

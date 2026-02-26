@@ -40,7 +40,7 @@ export default function BlogPage() {
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
-              className="rounded bg-[#0A0A0A] px-4 py-2 text-[13px] font-medium text-[#FAFAFA] transition-colors duration-200 hover:bg-[#0A0A0A]/90"
+              className="cursor-pointer rounded bg-[#0A0A0A] px-4 py-2 text-[13px] font-medium text-[#FAFAFA] transition-colors duration-200 hover:bg-[#0A0A0A]/90"
             >
               Subscribe
             </button>

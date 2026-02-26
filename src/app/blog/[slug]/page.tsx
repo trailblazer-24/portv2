@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { blogPosts } from "@/lib/blogPosts";
 import { getBlogPostHtml } from "@/lib/blogContent";
 import { BlogPostContent } from "@/components/BlogPostContent";
+import { ReadingProgressBar } from "@/components/ReadingProgressBar";
 import type { Metadata } from "next";
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.biswajitrath.com").replace(/\/+$/, "");
@@ -85,6 +86,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <main className="min-h-screen bg-[#F5F2EE] text-[#0A0A0A]">
+      <ReadingProgressBar />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
