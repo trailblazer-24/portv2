@@ -1,0 +1,211 @@
+---
+title: 'Stop Designing REST APIs Wrong: 10 Mistakes Developers Keep Making'
+publishedAt: '2026-03-09'
+summary: 'A practical guide to the 10 REST API design mistakes that create confusion, break clients, and add technical debt, with clear fixes for each.'
+tags: ['Backend', 'REST API', 'API Design', 'Scalability', 'Security']
+---
+
+# Introduction
+
+Designing a REST API that returns JSON is easy.
+
+Designing one that stays clear, reliable, secure, and scalable as your product grows is much harder.
+
+A lot of backend teams treat API design as a final step after database and business logic are done. That usually leads to inconsistent endpoints, weak error handling, breaking changes, and long-term technical debt.
+
+This guide breaks down 10 common REST API design mistakes and how to avoid them.
+
+# 1. Using Verbs in URLs
+
+A common anti-pattern is putting actions inside endpoint paths.
+
+Bad:
+
+```http
+GET /getUsers
+POST /createUser
+DELETE /deleteUser
+```
+
+In REST, URLs should represent resources. HTTP methods should represent actions.
+
+Better:
+
+```http
+GET /users
+POST /users
+DELETE /users/{id}
+```
+
+This convention makes your API easier to learn and more predictable for every client.
+
+# 2. Returning Wrong HTTP Status Codes
+
+Many APIs return `200 OK` for everything, including failures. This removes important context for clients.
+
+Use status codes to describe what actually happened:
+
+- `200 OK`: Request succeeded
+- `201 Created`: New resource created
+- `400 Bad Request`: Validation or request format issue
+- `401 Unauthorized`: Missing or invalid authentication
+- `403 Forbidden`: Authenticated but not allowed
+- `404 Not Found`: Resource does not exist
+- `500 Internal Server Error`: Unexpected server-side failure
+
+Example:
+
+```http
+POST /users
+HTTP/1.1 201 Created
+```
+
+Accurate status codes simplify retries, UI messaging, and client-side error handling.
+
+# 3. Inconsistent Naming Conventions
+
+As APIs grow, inconsistent routes quickly become a productivity drag.
+
+Confusing:
+
+```http
+/getUsers
+/userOrders
+/fetchProducts
+```
+
+Consistent and resource-based:
+
+```http
+/users
+/users/{id}
+/users/{id}/orders
+/products
+```
+
+Pick one naming style and keep it everywhere. Consistency improves readability and helps developers guess endpoints without documentation.
+
+# 4. Ignoring API Versioning
+
+Your API will evolve. Fields change, validations tighten, and behavior improves.
+
+Without versioning, changes can silently break old clients.
+
+A common pattern is URL versioning:
+
+```http
+/api/v1/users
+/api/v2/users
+```
+
+You can also version via headers, but the key rule is simple: add versioning early, before external consumers depend on unstable contracts.
+
+# 5. Returning Huge Datasets Without Pagination
+
+If `GET /users` returns thousands of records, performance suffers on both server and client sides.
+
+Use pagination from day one:
+
+```http
+GET /users?page=1&limit=20
+```
+
+Typical response shape:
+
+```json
+{
+  "data": [],
+  "pagination": {
+    "page": 1,
+    "limit": 20,
+    "total": 340
+  }
+}
+```
+
+For high-scale systems, cursor pagination is often better than page/offset because it avoids expensive skips on large tables.
+
+# 6. Mixing Authentication and Authorization
+
+These are related, but not the same.
+
+- Authentication: Who are you?
+- Authorization: What are you allowed to do?
+
+A user can be authenticated and still be forbidden from deleting another user's resources.
+
+Keeping these concerns separate makes security logic easier to reason about, test, and audit.
+
+# 7. Unstructured Error Responses
+
+Vague errors like `Something went wrong` make client behavior fragile.
+
+Use a consistent, machine-readable error format:
+
+```json
+{
+  "error": {
+    "code": "INVALID_EMAIL",
+    "message": "Email format is invalid"
+  }
+}
+```
+
+Optionally include fields like `requestId`, `details`, or `docsUrl` for observability and faster debugging.
+
+# 8. Skipping Filtering and Sorting
+
+If clients must fetch everything and filter locally, you increase payload size and client complexity.
+
+Support query-based retrieval:
+
+```http
+GET /users?role=admin&status=active
+GET /orders?sort=-createdAt
+```
+
+This improves performance and gives clients tighter control over what they fetch.
+
+# 9. Treating Security as an Afterthought
+
+APIs are often the front door to sensitive data. Security is not optional.
+
+Baseline practices:
+
+- Validate and sanitize all inputs
+- Enforce rate limits
+- Require HTTPS in all environments that carry real traffic
+- Use secure auth strategies (JWT, OAuth, or session-based auth)
+- Log and monitor suspicious activity
+
+A well-designed API is not just usable. It is resilient under abuse.
+
+# 10. Exposing Database Tables as API Design
+
+A database schema is an implementation detail, not your public contract.
+
+Table-driven thinking leads to rigid APIs that break as storage evolves.
+
+Instead of mirroring internals, model business workflows:
+
+```http
+GET /users/{id}/orders
+GET /orders/{id}
+```
+
+Design around user intent and domain language, not table names.
+
+# Final Thoughts
+
+Good API design compounds over time.
+
+It improves:
+
+- Developer experience
+- Integration reliability
+- System maintainability
+- Scalability under load
+
+Poor API design also compounds, but as technical debt.
+
+If you build backend systems, treat API design as architecture, not endpoint plumbing. A clean and predictable API becomes one of the highest leverage decisions in your stack.

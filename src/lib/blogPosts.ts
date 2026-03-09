@@ -1,4 +1,9 @@
-export type BlogPostIconName = "terminal" | "database" | "cloud" | "system";
+export type BlogPostIconName =
+  | "terminal"
+  | "database"
+  | "cloud"
+  | "system"
+  | "api";
 
 export type BlogPost = {
   slug: string;
@@ -17,6 +22,15 @@ const formatDate = (isoDate: string) =>
   }).format(new Date(isoDate));
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "rest-api-design-mistakes",
+    title: "Stop Designing REST APIs Wrong: 10 Mistakes Developers Keep Making",
+    date: formatDate("2026-03-09"),
+    isoDate: "2026-03-09",
+    description:
+      "A practical guide to the 10 REST API design mistakes that create confusion, break clients, and add technical debt, with clear fixes for each.",
+    icon: "api",
+  },
   {
     slug: "toon-for-llm-tokenization",
     title: "Cut Your LLM Token Bill in Half - How TOON Rewrites the Rules of JSON",

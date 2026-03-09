@@ -55,6 +55,48 @@ export function BlogPostIcon({ icon }: BlogPostIconProps) {
     );
   }
 
+  if (icon === "api") {
+    return (
+      <svg {...commonProps}>
+        <rect
+          x="3.5"
+          y="5"
+          width="17"
+          height="14"
+          rx="2.5"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        />
+        <path
+          d="M3.5 9.5H20.5"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <text
+          x="6.2"
+          y="8"
+          fill="currentColor"
+          fontSize="3.6"
+          fontWeight="700"
+          fontFamily="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace"
+        >
+          200
+        </text>
+        <text
+          x="8"
+          y="15.4"
+          fill="currentColor"
+          fontSize="4.2"
+          fontWeight="700"
+          fontFamily="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace"
+        >
+          OK
+        </text>
+      </svg>
+    );
+  }
+
   if (icon === "cloud") {
     return (
       <svg {...commonProps}>
