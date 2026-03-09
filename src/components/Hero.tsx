@@ -2,20 +2,10 @@
 
 import { useState, useEffect } from "react";
 
-interface HeroProps {
-  isReady?: boolean;
-}
-
-export function Hero({ isReady = true }: HeroProps) {
+export function Hero() {
   const [showCTA, setShowCTA] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Only trigger animations when isReady is true
-    if (isReady) {
-      setIsLoaded(true);
-    }
-
     const handleScroll = () => {
       const sections = document.querySelectorAll("section");
       if (sections.length === 0) return;
@@ -47,7 +37,7 @@ export function Hero({ isReady = true }: HeroProps) {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
     };
-  }, [isReady]);
+  }, []);
 
   return (
     <section className="relative min-h-screen bg-[#F5F2EE] text-[#111111] dark:bg-[#111111] dark:text-[#FAFAFA]">
@@ -55,9 +45,7 @@ export function Hero({ isReady = true }: HeroProps) {
       <div className="mx-auto grid min-h-screen max-w-6xl grid-cols-12 gap-4 px-6 py-6 sm:px-8">
         {/* Header */}
         <header
-          className={`col-span-12 flex items-center justify-between border-b border-[#111111]/10 pb-4 dark:border-[#FAFAFA]/10 ${
-            isLoaded ? "animate-fade-in" : "opacity-0"
-          }`}
+          className="col-span-12 flex items-center justify-between border-b border-[#111111]/10 pb-4 dark:border-[#FAFAFA]/10"
         >
           <div className="font-mono text-xs uppercase tracking-widest">
             Biswajit Rath
@@ -91,32 +79,21 @@ export function Hero({ isReady = true }: HeroProps) {
         <div className="col-span-12 flex flex-col justify-center pt-16 sm:col-span-10 sm:col-start-1 lg:col-span-8">
           {/* Label */}
           <p
-            className={`mb-6 font-mono text-xs uppercase tracking-widest text-[#111111]/50 dark:text-[#FAFAFA]/50 ${
-              isLoaded ? "animate-fade-in-up" : "opacity-0"
-            }`}
-            style={{ animationDelay: "100ms" }}
+            className="mb-6 font-mono text-xs uppercase tracking-widest text-[#111111]/50 dark:text-[#FAFAFA]/50"
           >
             Backend Developer
           </p>
 
           {/* Headline - dramatic Swiss typography */}
           <h1
-            className={`text-[clamp(3rem,8vw,6rem)] font-bold leading-[0.95] tracking-[-0.03em] ${
-              isLoaded ? "animate-fade-in-up" : "opacity-0"
-            }`}
-            style={{ animationDelay: "200ms" }}
+            className="max-w-[19ch] text-[clamp(2.75rem,7.5vw,5.75rem)] font-bold leading-[1.05] tracking-[-0.02em]"
           >
-            Building systems
-            <br />
-            that scale.
+            Building systems that scale.
           </h1>
 
           {/* Description */}
           <p
-            className={`mt-12 max-w-md text-base leading-relaxed text-[#111111]/70 dark:text-[#FAFAFA]/70 sm:text-lg ${
-              isLoaded ? "animate-fade-in-up" : "opacity-0"
-            }`}
-            style={{ animationDelay: "300ms" }}
+            className="mt-12 max-w-md text-base leading-relaxed text-[#111111]/70 dark:text-[#FAFAFA]/70 sm:text-lg"
           >
             I design and implement backend systems.
             <br></br>APIs. Databases. Distributed services.
@@ -124,18 +101,14 @@ export function Hero({ isReady = true }: HeroProps) {
 
           {/* CTA */}
           <div
-            className={`mt-10 ${isLoaded ? "animate-fade-in-up" : "opacity-0"}`}
-            style={{ animationDelay: "400ms" }}
+            className="mt-10"
           >
             <div
               aria-hidden="true"
               className="group inline-flex items-center gap-3 font-mono text-sm uppercase tracking-widest"
             >
               <span
-                className={`h-px w-12 bg-[#111111] transition-all duration-300 group-hover:w-20 dark:bg-[#FAFAFA] ${
-                  isLoaded ? "animate-line-grow" : "scale-x-0"
-                }`}
-                style={{ animationDelay: "600ms" }}
+                className="h-px w-12 bg-[#111111] transition-all duration-300 group-hover:w-20 dark:bg-[#FAFAFA]"
               />
             </div>
           </div>
@@ -143,10 +116,7 @@ export function Hero({ isReady = true }: HeroProps) {
 
         {/* Stack - right column */}
         <div
-          className={`col-span-12 flex flex-col justify-end pb-16 sm:col-span-2 sm:col-start-11 lg:col-span-3 lg:col-start-10 ${
-            isLoaded ? "animate-slide-in-right" : "opacity-0"
-          }`}
-          style={{ animationDelay: "400ms" }}
+          className="col-span-12 flex flex-col justify-end pb-16 sm:col-span-2 sm:col-start-11 lg:col-span-3 lg:col-start-10"
         >
           <div className="border-t border-[#111111]/10 pt-4 dark:border-[#FAFAFA]/10">
             <p className="mb-4 font-mono text-[10px] uppercase tracking-widest text-[#111111]/50 dark:text-[#FAFAFA]/50">
@@ -191,10 +161,7 @@ export function Hero({ isReady = true }: HeroProps) {
 
         {/* Bottom index marker */}
         <div
-          className={`col-span-12 mt-auto flex items-end justify-between border-t border-[#111111]/10 pt-4 dark:border-[#FAFAFA]/10 ${
-            isLoaded ? "animate-fade-in" : "opacity-0"
-          }`}
-          style={{ animationDelay: "500ms" }}
+          className="col-span-12 mt-auto flex items-end justify-between border-t border-[#111111]/10 pt-4 dark:border-[#FAFAFA]/10"
         >
           <span className="font-mono text-[10px] uppercase tracking-widest text-[#111111]/40 dark:text-[#FAFAFA]/40">
             Based in India
@@ -227,13 +194,7 @@ export function Hero({ isReady = true }: HeroProps) {
       </div>
 
       {/* Scroll indicator */}
-      <div
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 ${
-          isLoaded ? "animate-fade-in" : "opacity-0"
-        }`}
-        style={{ animationDelay: "800ms" }}
-      >
-      </div>
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2" />
     </section>
   );
 }
