@@ -33,7 +33,7 @@ const PROJECTS: Project[] = [
   {
     index: "02",
     title: "Status200",
-    year: "2024",
+    year: "2025",
     description:
       "Search engine for public APIs. Browse thousands of endpoints, test them instantly in your browser, and generate client code with AI.",
     stack: ["NodeJS", "GeminiAPI", "Github", "Vercel"],

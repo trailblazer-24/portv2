@@ -13,7 +13,7 @@ type Experience = {
 const EXPERIENCES: Experience[] = [
   {
     period: "2026 - Present",
-    role: "Software Engineer",
+    role: "Backend Developer",
     company: "Tech Startup",
     description:
       "Developing scalable end-to-end features across frontend and backend for a high-growth car pooling platform.",
