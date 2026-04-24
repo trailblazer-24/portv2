@@ -23,6 +23,15 @@ const PROJECTS: Project[] = [
   },
   {
     index: "01",
+    title: "TrimTube",
+    year: "2026",
+    description:
+      "Chrome extension that hide recommendations, comments, and other distractions on YouTube helping you stay focused.",
+    stack: ["Web extension", "Local storage", "Manifest V3"],
+    url: "https://trimtube.biswajitrath.com/",
+  },
+  {
+    index: "02",
     title: "Whiteboard Now",
     year: "2024",
     description:
@@ -31,7 +40,7 @@ const PROJECTS: Project[] = [
     url: "https://whiteboard.biswajitrath.com/",
   },
   {
-    index: "02",
+    index: "03",
     title: "Status200",
     year: "2025",
     description:
